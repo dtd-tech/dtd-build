@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Will install drush on the local machine
+
+# First install php5-cli and curl
+apt-get -q -y install php5-cli curl git
+
+# Then fetch and install composer
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+
+# Now install drush
+composer global require drush/drush:dev-master
