@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# DTD-Tools Source fetcher.
+# Uses a yaml file with source definitions to fetch
+# Iso files, tracks, tools and other content from various sources.
+# Usage:
+#  dtd-sources [all|desktop|server|tracks|tools|content] [options]
+
+# Is DTD_BASE set?
+
+# Load the common environment
+source $DTD_BASE/lib/common
+
+# Load the sources definitions
+eval $(parse_yaml $DTD_BASE/etc/sources.yml "dtd_src_")
+echo $dtd_src_desktop_method
+
+dtd_source_get() {
+  eval this_method=\$dtd_src_${1}_method
+  echo $this_method
+  case "$this_method" in
+    http)
+      dtd_source_get_http $1
+      ;;
+    torrent)
+      dtd_source_get_torrent $1
+      ;;
+    git)
+      dtd_source_get_git $1
+      ;;
+  esac
+}
+
+dtd_source_get_torrent() {
+  eval this_torrent=\$dtd_src_${1}_url
+  transmission-remote-cli -c transmission:transmission@localhost:9091 $this_torrent
+}
+
+
+
+case "$1" in
+  desktop)
+    dtd_source_get desktop
+    ;;
+  server)
+    dtd_source_get server
+    ;;
+  *)
+    echo $"Usage: $0 [all|desktop|server|tracks|tools|content] [options]"
+    exit 1
+esac
+

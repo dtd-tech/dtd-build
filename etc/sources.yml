@@ -1,0 +1,34 @@
+## DTD Sources
+desktop:
+  method: "torrent"
+  url: "http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-desktop-i386.iso.torrent"
+  file: "ubuntu-14.04.2-desktop-i386.iso"
+  size: 1051721728
+  md5: "a8a14f1f92c1ef35dae4966a2ae1a264"
+server:
+  method: "torrent"
+  url:"http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-server-i386.iso.torrent"
+  file: "ubuntu-14.04.2-server-i386.iso"
+  size: 606076928
+  md5: "6478187442f331631b65f886cdd229ce"
+
+tracks:
+  track1:
+    method: "git"
+    url: "https://github.com/SqyD/dtd-tracks.git"
+    branch: "master"
+
+content:
+  method: "git"
+  url: "https://github.com/SqyD/dtd-content.git"
+  branch: "master" 
+  
+tools:
+  win:
+    vbox:
+      method: "http"
+      url: 
+  
+  mac:
+    vbox:
+    

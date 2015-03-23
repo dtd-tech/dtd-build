@@ -10,7 +10,7 @@ Build environment requirements:
 Install the build requirement:
 * from your homedir: git clone https://github.com/SqyD/dtd-tools
 * cd dtd-tools
-* sudo ./bin/setup-build.sh
+* sudo ./bin/dtd-setup
 This will install all required packages, setup a file structure in your home directory and ...
 
 
