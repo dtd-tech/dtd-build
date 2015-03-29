@@ -11,3 +11,7 @@
 # Install dependencies
 apt-get update -y
 apt-get install -y git uck virtualbox
+
+# Create a GPG gpg-key
+gpg --gen-key
+
