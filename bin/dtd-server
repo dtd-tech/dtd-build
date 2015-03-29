@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Will generate a modified .iso image of Ubuntu 14:04 LTS for use as a self contained training environments for use at Drupal Training Day evenets.
+# Requirements:
+# * 5-8 GB of storage.
+
+# Load the configuration.
+
+# Load sources.
+
+
+
+# Unpack the iso
+
+# Replace the package repository
+
+# Copy over dtd-tools scripts needed.
+
+# Copy over the compressed training environment.
+
+# Add preseed configuration for (semi) automated installs.
+
+# Build new .iso from filesystem.

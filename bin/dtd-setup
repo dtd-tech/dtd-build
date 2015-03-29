@@ -9,5 +9,5 @@
 # Check disk space
 
 # Install dependencies
-apt-get update --y
-apt-get install --y git uck 
+apt-get update -y
+apt-get install -y git uck virtualbox

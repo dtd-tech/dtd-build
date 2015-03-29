@@ -12,11 +12,6 @@ server:
   size: 606076928
   md5: "6478187442f331631b65f886cdd229ce"
 
-tracks:
-  track1:
-    method: "git"
-    url: "https://github.com/SqyD/dtd-tracks.git"
-    branch: "master"
 
 content:
   method: "git"
@@ -27,7 +22,9 @@ tools:
   win:
     vbox:
       method: "http"
-      url: 
+      url: "http://download.virtualbox.org/virtualbox/4.3.26/VirtualBox-4.3.26-98988-Win.exe"
+      file: "VirtualBox-4.3.26-98988-Win.exe"
+      size:
   
   mac:
     vbox:

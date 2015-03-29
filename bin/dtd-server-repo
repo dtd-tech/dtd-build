@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Generates a tailor made repository for the server iso
+
+# Generate an iso image which will auto install all dtd components from the internet
+# and create a repository for it.  
+
+# Create a virtual machine.
+
+# Create a disk
+
+# Register the vm
+
+# start the vm
+
+# Check ssh connectivity.
+
+# Check for complete file
+
+# fetch compressed repository.
+
+
