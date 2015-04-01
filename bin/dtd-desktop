@@ -6,6 +6,8 @@
 
 # Create Chroot environment.
 
+# Cleanup list
+# apt-get remove thunderbird gimp* gnumeric abiword hplip libsane poppler libgutenprint2 parole xfburner gmusicbrowser gmusicbrowser blueman simple-scan pulseaudio bluez pidgin cups transmission-gtk 
 # Copy over files from source cd image
 
 # Copy over dtd-tools scripts needed.

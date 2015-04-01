@@ -1,8 +1,8 @@
 ## DTD Sources
 desktop:
   method: "torrent"
-  url: "http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-desktop-i386.iso.torrent"
-  file: "ubuntu-14.04.2-desktop-i386.iso"
+  url: "http://torrent.ubuntu.com/xubuntu/releases/trusty/release/desktop/xubuntu-14.04.2-desktop-i386.iso.torrent"
+  file: "xubuntu-14.04.2-desktop-i386.iso"
   size: 1051721728
   md5: "a8a14f1f92c1ef35dae4966a2ae1a264"
 server:
