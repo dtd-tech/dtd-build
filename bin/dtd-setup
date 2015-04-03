@@ -5,12 +5,18 @@
 
 # Am I root?
 
-# Add dtd bin directory 
 # Check disk space
 
+apt-get remove -y transmission-gtk
 # Install dependencies
 apt-get update -y
-apt-get install -y git uck virtualbox
+apt-get upgrade -y
+apt-get install -y git uck virtualbox transmission-daemon transmission-remote zsync
+
+pushd /opt
+git clone https://github.com/dtd-tech/dtd-tools.git
+popd
+
 
 # Create a GPG gpg-key
 gpg --gen-key

@@ -1,0 +1,9 @@
+win:
+  vbox:
+    method: "http"
+    url: "http://download.virtualbox.org/virtualbox/4.3.26/VirtualBox-4.3.26-98988-Win.exe"
+    file: "VirtualBox-4.3.26-98988-Win.exe"
+    size:
+  
+mac:
+  vbox:

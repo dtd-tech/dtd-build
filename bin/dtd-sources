@@ -34,6 +34,7 @@ dtd_source_get() {
 dtd_source_get_torrent() {
   eval this_torrent=\$dtd_src_${1}_url
   transmission-remote-cli -c transmission:transmission@localhost:9091 $this_torrent
+  # transmission-remote localhost:9091 --auth=transmission:transmission -w /opt/dtd-tools/var/sources/desktop/ --add http://cdimage.ubuntu.com/lubuntu/releases/14.10/release/lubuntu-14.10-desktop-i386.iso.torrent
 }
 
 

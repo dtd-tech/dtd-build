@@ -1,31 +1,13 @@
 ## DTD Sources
 desktop:
   method: "torrent"
-  url: "http://torrent.ubuntu.com/xubuntu/releases/trusty/release/desktop/xubuntu-14.04.2-desktop-i386.iso.torrent"
-  file: "xubuntu-14.04.2-desktop-i386.iso"
-  size: 1051721728
-  md5: "a8a14f1f92c1ef35dae4966a2ae1a264"
+  url: "http://torrent.ubuntu.com/xubuntu/releases/trusty/release/desktop/lubuntu-14.04.2-desktop-i386.iso.torrent"
+  file: "lubuntu-14.04.2-desktop-i386.iso"
+  size: 737148928
+  md5: "aab1b7817c7994e2f9a6fc5f90c609bd"
 server:
   method: "torrent"
   url:"http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-server-i386.iso.torrent"
   file: "ubuntu-14.04.2-server-i386.iso"
   size: 606076928
   md5: "6478187442f331631b65f886cdd229ce"
-
-
-content:
-  method: "git"
-  url: "https://github.com/SqyD/dtd-content.git"
-  branch: "master" 
-  
-tools:
-  win:
-    vbox:
-      method: "http"
-      url: "http://download.virtualbox.org/virtualbox/4.3.26/VirtualBox-4.3.26-98988-Win.exe"
-      file: "VirtualBox-4.3.26-98988-Win.exe"
-      size:
-  
-  mac:
-    vbox:
-    

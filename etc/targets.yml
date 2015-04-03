@@ -1,0 +1,10 @@
+## DTD Targets
+desktop:
+  iso:
+    file: "dtd-desktop.iso"
+server:
+  iso:
+    file: "dtd-server.iso"
+usb:
+  img:
+    file: "dtd-stick.img"

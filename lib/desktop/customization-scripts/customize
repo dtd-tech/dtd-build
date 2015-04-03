@@ -40,12 +40,12 @@ function remove_packages()
 	apt-get --purge remove --assume-yes --force-yes "$@" || failure "apt-get remove $@ failed, error=$?"
 }
 
-SCRIPT_DIR=`dirname "$0"`
-. "$SCRIPT_DIR/gui.sh"
+function upgrade_packages()
+{
+       apt-get upgrade --awsume-yes --force-yes
+}
 
-# Inherit environment
-[ -f "$SCRIPT_DIR/environment" ] &&
-	. "$SCRIPT_DIR/environment"
+SCRIPT_DIR=`dirname "$0"`
 
 LIVECD_LANGS=`cat "$SCRIPT_DIR/language_packs"`
 DESKTOP_TYPE=`cat "$SCRIPT_DIR/desktop_type"`
@@ -60,8 +60,9 @@ echo ">> Customizing: $rel, $kernel $arch"
 
 prepare_install || failure "Preparing installation failed, error=$?"
 
-$PACKAGES_TO_CLEAN="thunderbird gimp gnumeric abiword hplip libsane poppleri-data libgutenprint2 parole xfburn gmusicbrowser gmusicbrowser blueman simple-scan pulseaudio bluez pidgin cups transmission-gtk gnome-sudoku gnome-mines orage"
-remove_packages $PACKAGES_TO_CLEAN
+# Cleanup of unused packages.
+apt-get --purge remove --assume-yes --force-yes thunderbird gimp gnumeric abiword hplip libsane poppler-data libgutenprint2 parole xfburn gmusicbrowser gmusicbrowser blueman simple-scan pulseaudio bluez pidgin cups transmission-gtk gnome-sudoku gnome-mines orage
+
 apt-get autoremove --assume-yes --force-yes
 
 # List of packages to install to support the selected languages:
@@ -85,6 +86,9 @@ if [ -n "$LIVECD_LANGS" ]; then
 				PACKAGES_TO_INSTALL="$PACKAGES_TO_INSTALL $add"
 			done
 		fi
+                # Add firefox locales
+                add=`echo "firefox-locale-"$l"`
+                PACKAGES_TO_INSTALL="$PACKAGES_TO_INSTALL $add"
 	
 		if [ -z "$LANGPACKS_CONCATENATED" ]; then
 			LANGPACKS_CONCATENATED="$l"
@@ -105,4 +109,21 @@ if [ -n "$LIVECD_LANGS" ]; then
 		failure "Removing packages failed, error=$?"
 fi
 
+# Installing updates.
+apt-get upgrade --awsume-yes --force-yes
+
+# Installing dtd-stack.
+source $SCRIPT_DIR/dtd-stack
+
+# Install Drush
+source $SCRIPT_DIR/dtd-drush
+
+# Extract tracks
+mkdir -p /opt/dtd
+tar xzf $SCRIPT_DIR/dtd-tracks.tgz -C /opt/dtd
+
+# Install Atom
+
+# Install gate-one
+	
 echo "Done"

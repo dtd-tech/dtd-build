@@ -6,7 +6,7 @@
 export DEBIAN_FRONTEND=noninteractive
 
 # install apache
-apt-get -q -y install apache2 apache2utils
+apt-get -q -y install apache2 apache2-utils
 
 
 # Install mysql server
@@ -15,4 +15,4 @@ apt-get -q -y install mysql-server
 mysqladmin -u root password dtd
 
 # Install and configure php
-apt-get install -q -y php5 php5-mysql php-cli php5-gd php5-mcrypt php5-curl apc
+apt-get install -q -y php5 php5-mysql php5-cli php5-gd php5-mcrypt php5-curl

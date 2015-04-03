@@ -1,12 +1,12 @@
 ## DTD Tracks
 dtd-main:
   method: "git"
-  url: "https://github.com/SqyD/dtd-main.git"
+  url: "https://github.com/dtd-tech/dtd-main.git"
   branch: "master"
 
 intro:
   method: "git"
-  url: "https://github.com/SDN/dtd-intro.git"
+  url: "https://github.com/dtd-tech/dtd-intro.git"
   
 
 beginner:
