@@ -1,7 +1,7 @@
-# dtd-tools
-Drupal Traning Day Tools
+# dtd-build
+Drupal Traning Day Build
 
-Tools to support the Durpal Training Day training environment.
+Tools to build a Drupal training environment.
 
 Aims for provide:
 * Build scripts to automate creation installation media and virtual machines.
