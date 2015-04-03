@@ -1,0 +1,21 @@
+## DTD Configuration.
+event:
+  short: "dtd2015"
+  full: "Drupal Training Day 2015"
+  url: "http://drupaltrainingday.nl/"
+  date: "11/11/2015"
+
+release:
+  daily:
+    url: "http://tech.drupaltrainingday.nl/dtd2015/daily/"
+    targets: "iso torrent zsync vm vagrant usb" 
+    access: "team"
+  preview:
+    url: "http://tech.drupaltrainingday.nl/dtd2015/preview/"
+    targets: "iso torrent zsync vm vagrant" 
+    access: "public"
+  event:
+    url: "http://drupaltrainingday.nl/download/"
+    targets: "iso torrent zsync usb" 
+    targets: "iso torrent zsync vm vagrant usb" 
+    access: "public"

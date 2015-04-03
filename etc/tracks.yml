@@ -1,8 +1,11 @@
 ## DTD Tracks
-dtd-main:
+main:
   method: "git"
   url: "https://github.com/dtd-tech/dtd-main.git"
   branch: "master"
+  authors: 
+    dtd-tech:
+      name: "Drupal Training Day 2015 Team"
 
 intro:
   method: "git"
@@ -12,7 +15,7 @@ intro:
 beginner:
 
 advanced:
-  method: "manual"
+  method: "git"
   
 
 theming:
