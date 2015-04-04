@@ -1,0 +1,17 @@
+#!/bin/bash
+
+dtd_remaster_prep() {
+  # Create the remaster dir
+  mkdir -p $dtd_build_dir/tmp/$1/remaster
+  # Copy the customization-scripts template
+  cp -R $dtd_build_dir/lib/$1/customization-scripts $dtd_build_dir/tmp/$1/
+  # Copy the dtd package into the scripts dir so it's copied into the chroot.
+  cp $dtd_build_dir/var/build/tracks/dtd-tracks.tgz $dtd_build_dir/tmp/$1/customization-scripts/
+  # Copy stack and drush installer scripts.
+  
+  cp $dtd_build_dir/bin/dtd-stack $dtd_build_dir/tmp/$1/customization-scripts/
+  cp $dtd_build_dir/bin/dtd-drush $dtd_build_dir/tmp/$1/customization-scripts/
+
+}
+
+

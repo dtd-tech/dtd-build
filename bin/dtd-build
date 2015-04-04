@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# dtd-build
+# usage dtd-build [clean|source|build|update] [tracks|desktop|server|vm|vagrant|tools|usb|all]
+dtd_build_dir="/opt/dtd-build"
+
+# Load common routines
+source $dtd_build_dir/lib/common/dtd-common
+
+# Load config and sources.
+dtd_load_config;
+dtd_load_sources;
+dtd_load_targets;
+
+case "$1" in
+  clean )
+    uck-remaster-clean $dtd_build_dir/tmp/$2/remaster
+    rm -R $dtd_build_dir/tmp/$2/customization-scripts
+    ;;
+  source )
+    source $dtd_build_dir/lib/common/dtd-sources
+    case "$2" in
+      tracks | desktop | server | tools )
+        dtd_source_get $2
+        ;;
+      vm | vagrant | usb )
+        echo 'Nothing to fetch for "$2"'
+        ;;
+      * )
+        dtd_source_fetch
+        ;;
+    esac
+    ;;
+  build )
+    dtd_build_prep $2
+    case "$2" in
+      desktop )
+        source $dtd_build_dir/lib/desktop/dtd-desktop
+        dtd_build_desktop
+        ;;
+      server )
+        source $dtd_build_dir/lib/server/dtd-server
+        dtd_build_desktop
+        ;;
+      all | "" )
+        source $dtd_build_dir/lib/desktop/dtd-desktop
+        dtd_build_desktop
+        source $dtd_build_dir/lib/server/dtd-server
+        dtd_build_desktop
+        ;;
+    esac
+    ;;
+
+esac

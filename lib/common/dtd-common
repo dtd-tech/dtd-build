@@ -22,21 +22,25 @@ parse_yaml() {
 
 dtd_load_config() {
   # Load the general configuration
-  eval $(parse_yaml $dtdtools_dir/etc/config.yml "dtd_cfg_")
+  eval $(parse_yaml $dtd_build_dir/etc/config.yml "dtd_cfg_")
+}
+
+dtd_load_local() {
+  # Load the general configuration
+  eval $(parse_yaml $dtd_build_dir/etc/local.yml "dtd_local_")
 }
 
 dtd_load_sources() {
   # Load the sources definitions
-  eval $(parse_yaml $dtdtools_dir/etc/sources.yml "dtd_src_")
+  eval $(parse_yaml $dtd_build_dir/etc/sources.yml "dtd_src_")
 }
 
 dtd_load_targets() {
   # Load the target definitions
-  eval $(parse_yaml $dtdtools_dir/etc/targets.yml "dtd_target_")
+  eval $(parse_yaml $dtd_build_dir/etc/targets.yml "dtd_target_")
 }
-
 
 dtd_load_tracks() {
   # Load the tracks definitions
-  eval $(parse_yaml $dtdtools_dir/etc/tracks.yml "dtd_trk_")
+  eval $(parse_yaml $dtd_build_dir/etc/tracks.yml "dtd_trk_")
 }

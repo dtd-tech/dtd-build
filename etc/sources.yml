@@ -1,4 +1,5 @@
 ## DTD Sources
+sources: "desktop server"
 desktop:
   method: "torrent"
   url: "http://torrent.ubuntu.com/xubuntu/releases/trusty/release/desktop/lubuntu-14.04.2-desktop-i386.iso.torrent"

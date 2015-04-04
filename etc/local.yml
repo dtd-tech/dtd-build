@@ -1,0 +1,7 @@
+## DTD-build torrent configuration
+transmission:
+  host: localhost:9091
+  auth: transmission:transmission
+tracker:
+  host: tracker.drupaltrainingday.nl
+  auth: admin:secret
