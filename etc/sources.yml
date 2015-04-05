@@ -1,5 +1,5 @@
 ## DTD Sources
-sources: "desktop server"
+sources: "desktop server composer drush"
 desktop:
   method: "torrent"
   url: "http://torrent.ubuntu.com/lubuntu/releases/trusty/release/desktop/lubuntu-14.04.2-desktop-i386.iso.torrent"
@@ -8,7 +8,43 @@ desktop:
   md5: "aab1b7817c7994e2f9a6fc5f90c609bd"
 server:
   method: "torrent"
-  url:"http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-server-i386.iso.torrent"
+  url: "http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-server-i386.iso.torrent"
   file: "ubuntu-14.04.2-server-i386.iso"
   size: 606076928
   md5: "6478187442f331631b65f886cdd229ce"
+composer:
+  method: "http"
+  url: "https://getcomposer.org/composer.phar"
+  file: "composer.phar"
+drush:
+  method: "git"
+  url: "https://github.com/drush-ops/drush.git"
+  tag: "7.0.0-alpha9"
+  directory: "drush"
+
+## DTD Tracks
+tracks: "dtd-main"
+dtd-main:
+  method: "git"
+  url: "https://github.com/dtd-tech/dtd-main.git"
+  branch: "master"
+  directory: "dtd-main"
+  drupal: "7.x"
+  make: "dtd-main.make"
+  authors: 
+    name: "Drupal Training Day 2015 Team"
+
+intro:
+  method: "git"
+  url: "https://github.com/dtd-tech/dtd-intro.git"
+  
+
+beginner:
+
+advanced:
+  method: "git"
+  
+
+theming:
+
+
