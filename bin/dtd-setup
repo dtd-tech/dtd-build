@@ -11,7 +11,7 @@ apt-get remove -y transmission-gtk
 # Install dependencies
 apt-get update -y
 apt-get upgrade -y
-apt-get install -y git uck virtualbox transmission-daemon transmission-remote zsync
+apt-get install -y git uck syslinux virtualbox transmission-daemon transmission-remote zsync
 
 pushd /opt
 git clone https://github.com/dtd-tech/dtd-tools.git

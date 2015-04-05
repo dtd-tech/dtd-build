@@ -9,11 +9,54 @@
 
 
 # Load the sources definitions
-echo $dtd_src_desktop_method
+# echo $dtd_src_desktop_method
+
+
+dtd_source_get_all() {
+  all_sources=( $dtd_src_sources )
+  for source in "${all_sources[@]}"; do dtd_source_get $source; done
+}
+
+dtd_source_check() {
+  eval this_file=\$dtd_src_${1}_file
+  state=`cat $dtd_build_dir/var/sources/$1/$this_file.state`
+  case "$state" in
+    downloading )
+      if [ -f $dtd_build_dir/var/sources/$1/$this_file ]; then
+        eval this_size=\$dtd_src_${1}_size
+        current_size=`ls -lrt $dtd_build_dir/var/sources/$1/$this_file | nawk '{print $5}'`
+        if [ "$current_size" == "$this_size" ]; then
+          state="downloaded"
+        fi
+      fi
+      ;;
+    downloaded )
+      eval this_md5=\$dtd_src_${1}_md5
+      current_md5=`md5sum $dtd_build_dir/var/sources/$1/$this_file | awk '{ print $1 }'`
+      if [ "$current_md5" == "$this_md5" ]; then
+        state="done"
+      fi
+      ;;
+  esac 
+  echo $state > $dtd_build_dir/var/sources/$1/$this_file.state
+  echo $state 
+  
+}
+
+dtd_source_get_torrent() {
+  eval this_torrent=\$dtd_src_${1}_url
+  eval this_file=\$dtd_src_${1}_file
+  # Add the torrent to transmission
+  transmission-remote \
+    $dtd_local_transmission_host \
+    --auth=$dtd_local_transmission_auth \
+    -w $dtd_build_dir/var/sources/$1/ \
+    --add $this_torrent
+  echo "downloading" > $dtd_build_dir/var/sources/$1/$this_file.state
+}
 
 dtd_source_get() {
   eval this_method=\$dtd_src_${1}_method
-  echo $this_method
   case "$this_method" in
     http)
       dtd_source_get_http $1
@@ -25,42 +68,15 @@ dtd_source_get() {
       dtd_source_get_git $1
       ;;
   esac
+  source_state=unknown
+  while [ $source_state != "done" ]; do
+    source_state=`dtd_source_check $1`
+    echo $source_state
+    sleep 30
+  done
 }
 
-dtd_source_get_all {
+dtd_source_get_all() {
   all_sources=( $dtd_src_sources )
   for source in "${all_sources[@]}"; do dtd_source_get $source; done
-}
-
-dtd_source_check {
-  state=`cat $dtd_build_dir/var/source/$1.state'
-  case "$state" in
-    downloading )
-      eval this_file=\$dtd_src_${1}_file
-      eval this_size=\$dtd_src_${1}_size
-      $current_size=`ls -lrt $dtd_build_dir/var/source/$1/$this_file | nawk '{print $5}'`
-      if [ "$current_size" == "$this_size" ]; then
-        echo "downloaded" > $dtd_build_dir/var/sources/$1.state
-      fi
-      ;;
-    downloaded )
-      eval this_file=\$dtd_src_${1}_file
-      eval this_md5=\$dtd_src_${1}_md5
-      $current_md5=`md5sum $dtd_build_dir/var/sources/$1/$this_file | awk '{ print $1 }'`
-      if [ "current_md5" == "$this_md5" ]; then
-      
-      
-  
-}
-
-dtd_source_get_torrent() {
-  eval this_torrent=\$dtd_src_${1}_url
-  eval this_file=\$dtd_src_${1}_file
-  # Add the torrent to transmission
-  transmission-remote \
-    $dtd_local_transmission_host \
-    --auth=$dtd_local_transmission_auth \
-    -w /opt/dtd-tools/var/sources/$1/ \
-    --add $this_torrent
-  echo "downloading" > $dtd_build_dir/var/sources/$1.state
 }

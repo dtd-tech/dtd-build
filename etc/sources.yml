@@ -2,7 +2,7 @@
 sources: "desktop server"
 desktop:
   method: "torrent"
-  url: "http://torrent.ubuntu.com/xubuntu/releases/trusty/release/desktop/lubuntu-14.04.2-desktop-i386.iso.torrent"
+  url: "http://torrent.ubuntu.com/lubuntu/releases/trusty/release/desktop/lubuntu-14.04.2-desktop-i386.iso.torrent"
   file: "lubuntu-14.04.2-desktop-i386.iso"
   size: 737148928
   md5: "aab1b7817c7994e2f9a6fc5f90c609bd"
