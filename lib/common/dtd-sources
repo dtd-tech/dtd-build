@@ -3,14 +3,6 @@
 # DTD-Tools Source fetcher.
 # Uses a yaml file with source definitions to fetch
 # Iso files, tracks, tools and other content from various sources.
-# Usage:
-
-# Is DTD_BASE set?
-
-
-# Load the sources definitions
-# echo $dtd_src_desktop_method
-
 
 dtd_source_get_all() {
   all_sources=( $dtd_src_sources )
@@ -18,65 +10,140 @@ dtd_source_get_all() {
 }
 
 dtd_source_check() {
-  eval this_file=\$dtd_src_${1}_file
-  state=`cat $dtd_build_dir/var/sources/$1/$this_file.state`
-  case "$state" in
+  eval dtd_file=\$dtd_src_${1}_file
+  eval dtd_dir=\$dtd_src_${1}_dir
+  dtd_dest=$dtd_build_dir/var/sources
+  if [ "$2" ]; then 
+    dtd_dest=$dtd_dest/$2 
+  fi
+  echo "$dtd_build_dir"
+  if [ -z "$dtd_file" ]; then
+    dtd_state=`cat $dtd_dest/$1/$dtd_file.state`
+  fi
+  if [ -z "$dtd_dir" ]; then
+    dtd_state=`cat $dtd_dest/$1/$dtd_dir.state`
+  fi
+  case "$dtd_state" in
     downloading )
-      if [ -f $dtd_build_dir/var/sources/$1/$this_file ]; then
-        eval this_size=\$dtd_src_${1}_size
-        current_size=`ls -lrt $dtd_build_dir/var/sources/$1/$this_file | nawk '{print $5}'`
-        if [ "$current_size" == "$this_size" ]; then
-          state="downloaded"
+      eval dtd_method=\$dtd_src_${1}_method
+      case "$dtd_method" in
+        http )
+          dtd_job=`jobs | grep $dtd_file`
+          if [ ! "$dtd_job" ]; then
+            state="done"
+          fi
+          ;;
+      esac
+      if [ -f $dtd_dest/$1/$dtd_file ]; then
+        eval dtd_size=\$dtd_src_${1}_size
+        if [ "$dtd_size" != "" ]; then
+          current_size=`ls -lrt $dtd_dest/$1/$dtd_file | nawk '{print $5}'`
+          if [ "$current_size" == "$dtd_size" ]; then
+            dtd_state="downloaded"
+          fi
         fi
       fi
       ;;
     downloaded )
-      eval this_md5=\$dtd_src_${1}_md5
-      current_md5=`md5sum $dtd_build_dir/var/sources/$1/$this_file | awk '{ print $1 }'`
-      if [ "$current_md5" == "$this_md5" ]; then
-        state="done"
+      eval dtd_md5=\$dtd_src_${1}_md5
+      if [ ! "$dtd_md5" ]; then
+        current_md5=`md5sum $dtd_dest/$1/$dtd_file | awk '{ print $1 }'`
+        if [ "$current_md5" == "$dtd_md5" ]; then
+          dtd_state="done"
+        fi
       fi
       ;;
+    done )
+      ;;
   esac 
-  echo $state > $dtd_build_dir/var/sources/$1/$this_file.state
+  if [ -z $dtd_file ]; then
+    echo $dtd_state > $dtd_dest/$1/"$dtd_file".state
+  fi
+  if [ -z "$dtd_dir" ]; then
+    echo $dtd_state > $dtd_dest/$1/$dtd_dir.state
+  fi
   echo $state 
   
 }
 
+dtd_source_get_http() {
+  eval dtd_url=\$dtd_src_${1}_url
+  eval dtd_file=\$dtd_src_${1}_file
+  dtd_dest=$dtd_build_dir/var/sources
+  if [ $2 ]; then
+    dtd_dest=$dtd_dest/$2
+  fi
+  # start the download
+  curl -sL $dtd_url > $dtd_dest/$1/$dtd_file &
+  echo "downloading" > $dtd_build_dir/var/sources/$1/$dtd_file.state
+}
+
 dtd_source_get_torrent() {
-  eval this_torrent=\$dtd_src_${1}_url
-  eval this_file=\$dtd_src_${1}_file
+  eval dtd_torrent=\$dtd_src_${1}_url
+  eval dtd_file=\$dtd_src_${1}_file
+  dtd_dest=$dtd_build_dir/var/sources
+  if [ $2 ]; then
+    dtd_dest=$dtd_dest/$2
+  fi
   # Add the torrent to transmission
   transmission-remote \
     $dtd_local_transmission_host \
     --auth=$dtd_local_transmission_auth \
-    -w $dtd_build_dir/var/sources/$1/ \
-    --add $this_torrent
-  echo "downloading" > $dtd_build_dir/var/sources/$1/$this_file.state
+    -w $dtd_dest/$1/ \
+    --add $dtd_torrent
+  echo "downloading" > $dtd_dest/$1/$this_file.state
+}
+
+dtd_source_get_git() {
+  eval dtd_url=\$dtd_src_${1}_url
+  eval dtd_dir=\$dtd_src_${1}_dir
+  eval dtd_branch=\$dtd_src_${1}_branch
+  eval dtd_tag=\$dtd_src_${1}_tag
+  dtd_dest=$dtd_build_dir/var/sources
+  if [ "$2" ]; then 
+    dtd_dest=$dtd_dest/$2
+  fi
+  # dtd_dest=$dtd_dest/$1
+  echo $dtd_dest
+  pushd $dtd_dest
+  git clone $dtd_url
+  cd $dtd_dir
+  if [ "$dtd_branch" ]; then
+    git checkout $dtd_branch
+  fi
+  if [ "$dtd_tag" ]; then
+    git checkout tags/$dtd_tag
+  fi
+  popd 
+  echo "done" > $dtd_dest/$dtd_dir.state
 }
 
 dtd_source_get() {
-  eval this_method=\$dtd_src_${1}_method
-  case "$this_method" in
+  eval dtd_method=\$dtd_src_${1}_method
+  case "$dtd_method" in
     http)
-      dtd_source_get_http $1
+      dtd_source_get_http $1 $2
       ;;
     torrent)
-      dtd_source_get_torrent $1
+      dtd_source_get_torrent $1 $2
       ;;
     git)
-      dtd_source_get_git $1
+      dtd_source_get_git $1 $2
       ;;
   esac
-  source_state=unknown
-  while [ $source_state != "done" ]; do
-    source_state=`dtd_source_check $1`
+  source_state="done"
+  while [ "$source_state" != "done" ]; do
+    source_state=`dtd_source_check "$1" "$2"`
     echo $source_state
-    sleep 30
+    sleep 5
   done
 }
 
 dtd_source_get_all() {
   all_sources=( $dtd_src_sources )
   for source in "${all_sources[@]}"; do dtd_source_get $source; done
+}
+
+dtd_tracks_get() {
+ dtd_source_get $1 tracks 
 }

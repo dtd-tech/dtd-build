@@ -20,15 +20,15 @@ drush:
   method: "git"
   url: "https://github.com/drush-ops/drush.git"
   tag: "7.0.0-alpha9"
-  directory: "drush"
+  dir: "drush"
 
 ## DTD Tracks
-tracks: "dtd-main"
-dtd-main:
+tracks: "main"
+main:
   method: "git"
   url: "https://github.com/dtd-tech/dtd-main.git"
   branch: "master"
-  directory: "dtd-main"
+  dir: "dtd-main"
   drupal: "7.x"
   make: "dtd-main.make"
   authors: 

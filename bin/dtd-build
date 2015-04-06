@@ -21,9 +21,16 @@ case "$1" in
   source )
     source $dtd_build_dir/lib/common/dtd-sources
     case "$2" in
-      composer | drush | tracks | desktop | server | tools )
+      composer | drush | desktop | server | tools )
         dtd_source_get $2
-        dtd_source_check $2
+        # dtd_source_check $2
+        ;;
+      tracks )
+        if [ "$3" ]; then
+          dtd_source_get $3 tracks
+#        elfi
+#          dtd_tracks_get_all
+        fi
         ;;
       vm | vagrant | usb )
         echo 'Nothing to fetch for "$2"'
@@ -36,19 +43,27 @@ case "$1" in
   build )
     dtd_build_prep $2
     case "$2" in
+      composer )
+        source $dtd_build_dir/lib/drush/dtd-drush
+        dtd_build_composer
+        ;;
+      drush )
+        source $dtd_build_dir/lib/drush/dtd-drush
+        dtd_build_drush
+        ;;
       desktop )
         source $dtd_build_dir/lib/desktop/dtd-desktop
         dtd_build_desktop
         ;;
       server )
         source $dtd_build_dir/lib/server/dtd-server
-        dtd_build_desktop
+        dtd_build_server
         ;;
       all | "" )
         source $dtd_build_dir/lib/desktop/dtd-desktop
         dtd_build_desktop
         source $dtd_build_dir/lib/server/dtd-server
-        dtd_build_desktop
+        dtd_build_server
         ;;
     esac
     ;;

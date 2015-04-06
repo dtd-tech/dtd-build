@@ -15,6 +15,6 @@ dtd_build_drush() {
   cd drush
   composer install
   cd ..
-  tar czvf $dtd_tools/var/build/drush/drush.tgz drush
+  tar czvf $dtd_build_dir/var/build/drush/drush.tgz drush
   popd
 }
