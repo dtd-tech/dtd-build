@@ -21,6 +21,26 @@ drush:
   url: "https://github.com/drush-ops/drush.git"
   tag: "7.0.0-alpha9"
   dir: "drush"
+uni_controller:
+  method: "http"
+  url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_controller_1_3_1.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1433089553&use_mirror=garr"
+  file: "ZeroXI_controller_1_3_1.exe"
+  md5: ""
+uni_mysql:
+  method: "http"
+  url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_mysql_5_6_25.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1433089929&use_mirror=softlayer-ams"
+  file: "ZeroXI_mysql_5_6_25.exe"
+  md5:
+uni_apache:
+  method: "http"
+  url:
+  file:
+  md5:
+uni_php:
+  method: "http"
+  url:
+  file:
+  md5:
 
 ## DTD Tracks
 tracks: "main"
@@ -31,20 +51,18 @@ main:
   dir: "dtd-main"
   drupal: "7.x"
   make: "dtd-main.make"
-  authors: 
+  authors:
     name: "Drupal Training Day 2015 Team"
 
 intro:
   method: "git"
   url: "https://github.com/dtd-tech/dtd-intro.git"
-  
+
 
 beginner:
 
 advanced:
   method: "git"
-  
+
 
 theming:
-
-
