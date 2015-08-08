@@ -1,14 +1,19 @@
 ## DTD Tracks
+tracks: "main"
 main:
   method: "git"
   url: "https://github.com/dtd-tech/dtd-main.git"
   branch: "master"
+  host: "main.dtd"
+  sql: "dtd-main.sql"
+  drush_alias: "dtd-main.alias.drushrc.php"
+  name: "Drupal Training Day 2015"
+  description: "Standaard landings pagina met eerste aanwijzinen en tips voor een snelle start met deze Drupal trainings omgeving."
   authors:
     dtd-tech:
       name: "Drupal Training Day 2015 Team"
-      url: "http:www.drupaltrainingday.nl"
-  host: "main.dtd"
-  
+      url: "http://www.drupaltrainingday.nl"
+
 
 
 intro:

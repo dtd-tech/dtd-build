@@ -149,7 +149,6 @@ dtd_source_get() {
 }
 
 dtd_source_get_win() {
-  echo
   win_sources=( $dtd_src_win_sources )
   for source in "${win_sources[@]}"; do dtd_source_get $source win; done
 }

@@ -3,7 +3,7 @@
 # DTD-Tools Common functions
 
 # Generic yaml parser for bash
-# Source: https://gist.github.com/pkuczynski/8665367 
+# Source: https://gist.github.com/pkuczynski/8665367
 parse_yaml() {
    local prefix=$2
    local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
@@ -42,5 +42,5 @@ dtd_load_targets() {
 
 dtd_load_tracks() {
   # Load the tracks definitions
-  eval $(parse_yaml $dtd_build_dir/etc/tracks.yml "dtd_trk_")
+  eval $(parse_yaml $dtd_build_dir/etc/tracks.yml "dtd_track_")
 }

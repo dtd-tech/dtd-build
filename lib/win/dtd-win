@@ -3,16 +3,18 @@
 # This will unpack and configure the uniserverz from separate components.
 
 dtd_build_win() {
-  pushd $dtd_buid_dir/var/build/win
+  pushd $dtd_buid_dir/tmp
   dtd_build_win_extract
   # Add the vhost configs
+  dtd_buid_win_vhosts
 
-  # Copy the tracks mysql dumps for restoration at first run.
-
+  dtd_build_win_configure
   # Add a file to check if the db import hasn't happened.
   touch tmp/fresh_install.txt
   # Cleanup
   dtd_build_win_cleanup
+  # Compress
+  dtd_build_win_compress
   # We're done here.
   popd
 }
@@ -30,15 +32,45 @@ dtd_build_win_extract() {
   7z x -y $dtd_build_dir/var/sources/win/ZeroXI_php_*.exe
   # Etract phpmyadmin
   7z x -y $dtd_build_dir/var/sources/win/ZeroXI_phpmyadmin_*.exe
-
+  # Add composer
+  cd core
+  mkdir composer
+  cd composer
+  cp $dtd_build_dir/var/build/composer.gz .
+  gunzip composer.gz
+  cd ..
+  # Add Drush
+  tar xzvf $dtd_build_dir/var/build/drush/drush.tgz
+  cd ..
+  # Add all tracks
   tar xzvf $dtd_build_dir/var/build/tracks/dtd-tracks.tgz
   cd ..
 }
 
+dtd_build_win_compress() {
+  cd $dtd_build_dir/tmp
+  # Compress using 7z and max compression rate.
+  7z a -mx=9 dtd-win.7z dtd-win
+  # Create a self extracint windows executable
+  cat $dtd_build_dir/var/lib/win/dtd.sfx dtd-win.7z > $dtd_build_dir/var/build/win/dtd-win.exe
+}
+
+dtd_buid_win_vhosts() {
+  cd $dtd_build_dir/tmp
+  echo "Include conf/extra/dtd-vhosts.conf" >> dtd-win/core/apache/conf/httpd.conf
+  # First start with the main track as the default vhost
+  cp $dtd_build_dir/lib/win/default_vhost.conf dtd-win/core/apache/conf/dtd-vhosts.conf
+  # The modify and add a vhost for each track.
+  for track in "${dtd_track_tracks[@]}"
+  do
+    eval dtd_host=\$dtd_track_${track}_host
+    cat dtd_build_dir/lib/win/vhost.conf | sed 's/_DTD_TRACK_/${track}/g' | sed 's/_DTD_HOST_/${dtd_host}g' >> dtd-win/core/apache/conf/dtd-vhosts.conf
+  done
+}
 
 dtd_build_win_cleanup() {
   # Remove Uniserver readme files.
   rm dtd-win/ZeroXI*.read_me.txt
   # Clean up www. Then copy the docroots
-  rm -R www
+  rm -R dtd-win/www
 }
