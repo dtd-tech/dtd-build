@@ -44,7 +44,7 @@ case "$1" in
     esac
     ;;
   build )
-    dtd_build_prep $2
+    # dtd_build_prep $2
     case "$2" in
       composer )
         source $dtd_build_dir/lib/drush/dtd-drush
@@ -63,7 +63,7 @@ case "$1" in
         dtd_build_server
         ;;
       win )
-        source $dtd_buid_dir/lib/win/dtd-win
+        source $dtd_build_dir/lib/win/dtd-win
         dtd_build_win
         ;;
       all | "" )
