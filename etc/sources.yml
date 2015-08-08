@@ -19,7 +19,7 @@ composer:
 drush:
   method: "git"
   url: "https://github.com/drush-ops/drush.git"
-  tag: "7.0.0-alpha9"
+  branch: "master"
   dir: "drush"
 
 win_sources: "win_controller win_mysql win_apache win_php win_phpmyadmin"
