@@ -12,16 +12,18 @@ dtd_source_get_all() {
 dtd_source_check() {
   eval dtd_file=\$dtd_src_${1}_file
   eval dtd_dir=\$dtd_src_${1}_dir
-  dtd_dest=$dtd_build_dir/var/sources
-  if [ "$2" ]; then
-    dtd_dest=$dtd_dest/$2
+  if [ $2 ];
+    then
+      dtd_dest=$dtd_build_dir/var/sources/$2
+    else
+      dtd_dest=$dtd_build_dir/var/sources/$1
   fi
   echo "$dtd_build_dir"
   if [ -z "$dtd_file" ]; then
-    dtd_state=`cat $dtd_dest/$1/$dtd_file.state`
+    dtd_state=`cat $dtd_dest/$dtd_file.state`
   fi
   if [ -z "$dtd_dir" ]; then
-    dtd_state=`cat $dtd_dest/$1/$dtd_dir.state`
+    dtd_state=`cat $dtd_dest/$dtd_dir.state`
   fi
   case "$dtd_state" in
     downloading )
@@ -34,10 +36,10 @@ dtd_source_check() {
           fi
           ;;
       esac
-      if [ -f $dtd_dest/$1/$dtd_file ]; then
+      if [ -f $dtd_dest/$dtd_file ]; then
         eval dtd_size=\$dtd_src_${1}_size
         if [ "$dtd_size" != "" ]; then
-          current_size=`ls -lrt $dtd_dest/$1/$dtd_file | nawk '{print $5}'`
+          current_size=`ls -lrt $dtd_dest/$dtd_file | nawk '{print $5}'`
           if [ "$current_size" == "$dtd_size" ]; then
             dtd_state="downloaded"
           fi
@@ -47,7 +49,7 @@ dtd_source_check() {
     downloaded )
       eval dtd_md5=\$dtd_src_${1}_md5
       if [ ! "$dtd_md5" ]; then
-        current_md5=`md5sum $dtd_dest/$1/$dtd_file | awk '{ print $1 }'`
+        current_md5=`md5sum $dtd_dest/$dtd_file | awk '{ print $1 }'`
         if [ "$current_md5" == "$dtd_md5" ]; then
           dtd_state="done"
         fi
@@ -57,10 +59,10 @@ dtd_source_check() {
       ;;
   esac
   if [ -z $dtd_file ]; then
-    echo $dtd_state > $dtd_dest/$1/"$dtd_file".state
+    echo $dtd_state > $dtd_dest/"$dtd_file".state
   fi
   if [ -z "$dtd_dir" ]; then
-    echo $dtd_state > $dtd_dest/$1/$dtd_dir.state
+    echo $dtd_state > $dtd_dest/$dtd_dir.state
   fi
   echo $state
 
@@ -69,29 +71,34 @@ dtd_source_check() {
 dtd_source_get_http() {
   eval dtd_url=\$dtd_src_${1}_url
   eval dtd_file=\$dtd_src_${1}_file
-  dtd_dest=$dtd_build_dir/var/sources
-  if [ $2 ]; then
-    dtd_dest=$dtd_dest/$2
+  if [ $2 ];
+    then
+      dtd_dest=$dtd_build_dir/var/sources/$2
+    else
+      dtd_dest=$dtd_build_dir/var/sources/$1
   fi
+
   # start the download
-  curl -sL $dtd_url > $dtd_dest/$1/$dtd_file &
-  echo "downloading" > $dtd_build_dir/var/sources/$1/$dtd_file.state
+  curl -sL $dtd_url > $dtd_dest/$dtd_file &
+  echo "downloading" > $dtd_dest/$dtd_file.state
 }
 
 dtd_source_get_torrent() {
   eval dtd_torrent=\$dtd_src_${1}_url
   eval dtd_file=\$dtd_src_${1}_file
-  dtd_dest=$dtd_build_dir/var/sources
-  if [ $2 ]; then
-    dtd_dest=$dtd_dest/$2
+  if [ $2 ];
+    then
+      dtd_dest=$dtd_build_dir/var/sources/$2
+    else
+      dtd_dest=$dtd_build_dir/var/sources/$1
   fi
   # Add the torrent to transmission
   transmission-remote \
     $dtd_local_transmission_host \
     --auth=$dtd_local_transmission_auth \
-    -w $dtd_dest/$1/ \
+    -w $dtd_dest/ \
     --add $dtd_torrent
-  echo "downloading" > $dtd_dest/$1/$this_file.state
+  echo "downloading" > $dtd_dest/$this_file.state
 }
 
 dtd_source_get_git() {
@@ -99,9 +106,11 @@ dtd_source_get_git() {
   eval dtd_dir=\$dtd_src_${1}_dir
   eval dtd_branch=\$dtd_src_${1}_branch
   eval dtd_tag=\$dtd_src_${1}_tag
-  dtd_dest=$dtd_build_dir/var/sources
-  if [ "$2" ]; then
-    dtd_dest=$dtd_dest/$2
+  if [ $2 ];
+    then
+      dtd_dest=$dtd_build_dir/var/sources/$2
+    else
+      dtd_dest=$dtd_build_dir/var/sources/$1
   fi
   # dtd_dest=$dtd_dest/$1
   echo $dtd_dest
@@ -140,11 +149,12 @@ dtd_source_get() {
 }
 
 dtd_source_get_win() {
-  win_sources=( $dtd_src_sources_win )
+  echo
+  win_sources=( $dtd_src_win_sources )
   for source in "${win_sources[@]}"; do dtd_source_get $source win; done
 }
 
 
 dtd_tracks_get() {
- dtd_source_get $1 tracks
+ dtd_source_get $1 tracks/$1
 }
