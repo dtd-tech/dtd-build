@@ -3,21 +3,23 @@ main:
   method: "git"
   url: "https://github.com/dtd-tech/dtd-main.git"
   branch: "master"
-  authors: 
+  authors:
     dtd-tech:
       name: "Drupal Training Day 2015 Team"
+      url: "http:www.drupaltrainingday.nl"
+  host: "main.dtd"
+  
+
 
 intro:
   method: "git"
   url: "https://github.com/dtd-tech/dtd-intro.git"
-  
+
 
 beginner:
 
 advanced:
   method: "git"
-  
+
 
 theming:
-
-

@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# This will unpack and configure the uniserverz from separate components.
+
+dtd_build_win() {
+  pushd $dtd_buid_dir/var/build/win
+  dtd_build_win_extract
+  # Add the vhost configs
+
+  # Copy the tracks mysql dumps for restoration at first run.
+
+  # Add a file to check if the db import hasn't happened.
+  touch tmp/fresh_install.txt
+  # Cleanup
+  dtd_build_win_cleanup
+  # We're done here.
+  popd
+}
+
+dtd_build_win_extract() {
+  # First extract the controller
+  7z x -y $dtd_build_dir/var/sources/win/ZeroXI_controller_*.exe
+  mv UniServerZ dtd-win
+  cd dtd-win
+  # Extract Apache
+  7z x -y $dtd_build_dir/var/sources/win/ZeroXI_apache_*.exe
+  # Extract mysql
+  7z x -y $dtd_build_dir/var/sources/win/ZeroXI_mysql_*.exe
+  # Extract php
+  7z x -y $dtd_build_dir/var/sources/win/ZeroXI_php_*.exe
+  # Etract phpmyadmin
+  7z x -y $dtd_build_dir/var/sources/win/ZeroXI_phpmyadmin_*.exe
+
+  tar xzvf $dtd_build_dir/var/build/tracks/dtd-tracks.tgz
+  cd ..
+}
+
+
+dtd_build_win_cleanup() {
+  # Remove Uniserver readme files.
+  rm dtd-win/ZeroXI*.read_me.txt
+  # Clean up www. Then copy the docroots
+  rm -R www
+}

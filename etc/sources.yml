@@ -22,7 +22,7 @@ drush:
   tag: "7.0.0-alpha9"
   dir: "drush"
 
-win_sources: "win_controller win_mysql win_apache win_php"
+win_sources: "win_controller win_mysql win_apache win_php win_phpmyadmin"
 win_controller:
   method: "http"
   url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_controller_1_3_1.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1433089553&use_mirror=garr"
@@ -43,6 +43,11 @@ win_php:
   url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_php_5_5_27_p.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1439024430&use_mirror=heanet"
   file: "ZeroXI_php_5_5_27_p.exe"
   md5: "3a01122e4210e9eff44fa8cbbbdcb215"
+win_php:
+  method: "http"
+  url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_phpmyadmin_4_4_12.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1439030627&use_mirror=cznic"
+  file: "ZeroXI_phpmyadmin_4_4_12.exe"
+  md5: "7881aae84e2eedc45771df8bc9038fc9"
 
 ## DTD Tracks
 tracks: "main"

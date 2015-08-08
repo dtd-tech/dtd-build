@@ -62,11 +62,17 @@ case "$1" in
         source $dtd_build_dir/lib/server/dtd-server
         dtd_build_server
         ;;
+      win )
+        source $dtd_buid_dir/lib/win/dtd-win
+        dtd_build_win
+        ;;
       all | "" )
         source $dtd_build_dir/lib/desktop/dtd-desktop
         dtd_build_desktop
         source $dtd_build_dir/lib/server/dtd-server
         dtd_build_server
+        source $dtd_buid_dir/lib/win/dtd-win
+        dtd_build_win
         ;;
     esac
     ;;
