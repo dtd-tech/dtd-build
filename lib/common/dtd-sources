@@ -13,8 +13,8 @@ dtd_source_check() {
   eval dtd_file=\$dtd_src_${1}_file
   eval dtd_dir=\$dtd_src_${1}_dir
   dtd_dest=$dtd_build_dir/var/sources
-  if [ "$2" ]; then 
-    dtd_dest=$dtd_dest/$2 
+  if [ "$2" ]; then
+    dtd_dest=$dtd_dest/$2
   fi
   echo "$dtd_build_dir"
   if [ -z "$dtd_file" ]; then
@@ -55,15 +55,15 @@ dtd_source_check() {
       ;;
     done )
       ;;
-  esac 
+  esac
   if [ -z $dtd_file ]; then
     echo $dtd_state > $dtd_dest/$1/"$dtd_file".state
   fi
   if [ -z "$dtd_dir" ]; then
     echo $dtd_state > $dtd_dest/$1/$dtd_dir.state
   fi
-  echo $state 
-  
+  echo $state
+
 }
 
 dtd_source_get_http() {
@@ -100,7 +100,7 @@ dtd_source_get_git() {
   eval dtd_branch=\$dtd_src_${1}_branch
   eval dtd_tag=\$dtd_src_${1}_tag
   dtd_dest=$dtd_build_dir/var/sources
-  if [ "$2" ]; then 
+  if [ "$2" ]; then
     dtd_dest=$dtd_dest/$2
   fi
   # dtd_dest=$dtd_dest/$1
@@ -114,7 +114,7 @@ dtd_source_get_git() {
   if [ "$dtd_tag" ]; then
     git checkout tags/$dtd_tag
   fi
-  popd 
+  popd
   echo "done" > $dtd_dest/$dtd_dir.state
 }
 
@@ -139,11 +139,12 @@ dtd_source_get() {
   done
 }
 
-dtd_source_get_all() {
-  all_sources=( $dtd_src_sources )
-  for source in "${all_sources[@]}"; do dtd_source_get $source; done
+dtd_source_get_win() {
+  win_sources=( $dtd_src_sources_win )
+  for source in "${win_sources[@]}"; do dtd_source_get $source win; done
 }
 
+
 dtd_tracks_get() {
- dtd_source_get $1 tracks 
+ dtd_source_get $1 tracks
 }

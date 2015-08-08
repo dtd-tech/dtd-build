@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # dtd-build
-# usage dtd-build [clean|source|build|update] [composer|drush|tracks|desktop|server|vm|vagrant|tools|usb|all]
+# usage dtd-build [clean|source|build|update] [composer|drush|tracks|desktop|server|vm|vagrant|tools|win|usb|all]
 dtd_build_dir="/opt/dtd-build"
 
 # Load common routines
@@ -24,6 +24,9 @@ case "$1" in
       composer | drush | desktop | server | tools )
         dtd_source_get $2
         # dtd_source_check $2
+        ;;
+      win )
+        dtd_source_get_win
         ;;
       tracks )
         if [ "$3" ]; then

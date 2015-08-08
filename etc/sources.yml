@@ -21,26 +21,28 @@ drush:
   url: "https://github.com/drush-ops/drush.git"
   tag: "7.0.0-alpha9"
   dir: "drush"
-uni_controller:
+
+win_sources: "win_controller win_mysql win_apache win_php"
+win_controller:
   method: "http"
   url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_controller_1_3_1.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1433089553&use_mirror=garr"
   file: "ZeroXI_controller_1_3_1.exe"
-  md5: ""
-uni_mysql:
+  md5: "53513fefa96cf1b80cf3970e394f85d3"
+win_mysql:
   method: "http"
-  url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_mysql_5_6_25.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1433089929&use_mirror=softlayer-ams"
-  file: "ZeroXI_mysql_5_6_25.exe"
-  md5:
-uni_apache:
+  url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_mysql_5_6_26.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1439021890&use_mirror=cznic"
+  file: "ZeroXI_mysql_5_6_26.exe"
+  md5: "cab10a053d82f61f21f7e178df8fe927"
+win_apache:
   method: "http"
-  url:
-  file:
-  md5:
-uni_php:
+  url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_apache_2_4_16_p.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1439024365&use_mirror=heanet"
+  file: "ZeroXI_apache_2_4_16_p.exe"
+  md5: "a1ee79b84348a8368042175b21218c0f"
+win_php:
   method: "http"
-  url:
-  file:
-  md5:
+  url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_php_5_5_27_p.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1439024430&use_mirror=heanet"
+  file: "ZeroXI_php_5_5_27_p.exe"
+  md5: "3a01122e4210e9eff44fa8cbbbdcb215"
 
 ## DTD Tracks
 tracks: "main"
