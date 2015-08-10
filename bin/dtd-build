@@ -76,5 +76,24 @@ case "$1" in
         ;;
     esac
     ;;
+  all )
 
+    dtd_source_get_all
+
+    dtd_build_composer
+
+    dtd_build_drush
+
+    dtd_build_tracks
+
+    dtd_build_win
+
+    dtd_build_server
+
+    dtd_build_vm_server
+
+    dtd_build_desktop
+
+    dtd_build_usb
+  ;;
 esac
