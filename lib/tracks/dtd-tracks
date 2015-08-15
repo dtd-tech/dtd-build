@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Routines to create a generic dtd-tracks.zip for use in multiple targets.
+
+dtd_build_tracks() {
+  tracks=( $dtd_src_tracks )
+  for track in "${tracks[@]}"; do
+    dtd_source_get $source win
+  done
+}

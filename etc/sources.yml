@@ -54,6 +54,7 @@ tracks: "main"
 main:
   method: "git"
   url: "https://github.com/dtd-tech/dtd-main.git"
+  dir: "dtd-main"
   branch: "master"
   host: "main.dtd"
   sql: "dtd-main.sql"
