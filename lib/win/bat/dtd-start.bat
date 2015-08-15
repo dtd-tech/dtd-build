@@ -19,3 +19,6 @@ GOTO:eof
 REM Routine to import the databases.
 ECHO Starting MySQL database.
 UniController.exe start_mysql
+
+REM Set root password.
+core\mysql\mysqladmin.exe -u root --password=root password _DTD_PASSWORD_
