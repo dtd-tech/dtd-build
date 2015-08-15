@@ -1,4 +1,8 @@
 ## DTD Configuration.
+auth:
+  user: dtd
+  password: dtd
+
 local:
   nl:
     country: nl
@@ -18,7 +22,7 @@ local:
     lang_ex: EN_en
     keyboard: US_int
     time: UTC
-      
+
 event:
   short: "dtd2015"
   full: "Drupal Training Day 2015"
@@ -31,14 +35,14 @@ release:
     publish: "local"
   daily:
     url: "http://tech.drupaltrainingday.nl/dtd2015/daily/"
-    targets: "iso torrent zsync vm vagrant" 
+    targets: "iso torrent zsync vm vagrant"
     publish: "team"
   preview:
     url: "http://tech.drupaltrainingday.nl/dtd2015/preview/"
-    targets: "iso torrent zsync vm vagrant" 
+    targets: "iso torrent zsync vm vagrant"
     publish: "public"
   event:
     url: "http://drupaltrainingday.nl/download/"
-    targets: "iso torrent zsync vm vagrant stick" 
-    targets: "iso torrent zsync vm vagrant usb" 
+    targets: "iso torrent zsync vm vagrant stick"
+    targets: "iso torrent zsync vm vagrant usb"
     publish: "public"
