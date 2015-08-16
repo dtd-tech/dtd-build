@@ -37,5 +37,4 @@ dtd_build_tracks() {
   pushd $dtd_build_dir/tmp
   zip -r $dtd_build_dir/var/build/tracks/$dtd_cfg_event_short-tracks.zip $dtd_build_dir/tmp/tracks
   popd
-
 }

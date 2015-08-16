@@ -54,6 +54,10 @@ case "$1" in
         source $dtd_build_dir/lib/drush/dtd-drush
         dtd_build_drush
         ;;
+      tracks )
+        source $dtd_build_dir/lib/tracks/dtd-tracks
+        dtd_build_tracks
+        ;;
       desktop )
         source $dtd_build_dir/lib/desktop/dtd-desktop
         dtd_build_desktop
