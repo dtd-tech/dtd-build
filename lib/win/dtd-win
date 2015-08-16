@@ -4,7 +4,7 @@
 
 dtd_build_win() {
   echo "Starting Windows build..."
-  pushd $dtd_build_dir/tmp
+  pushd $dtd_build_dir/tmp > /dev/null
   dtd_build_win_extract
   # Add the vhost configs
   dtd_build_win_tracks
@@ -17,7 +17,7 @@ dtd_build_win() {
   # Compress
   dtd_build_win_compress
   # We're done here.
-  popd
+  popd > /dev/null
   echo "Windows build complete."
 }
 
@@ -65,9 +65,9 @@ dtd_build_win_compress() {
 
 dtd_build_win_tracks() {
   echo "Generating Apache vhost for Windows..."
-  default_host=1
+  default_vhost=1
   cd $dtd_build_dir/tmp
-  echo "Include conf/extra/dtd-vhosts.conf" >> $dtd_cfg_event_short/core/apache/conf/httpd.conf
+  echo "Include conf/extra/dtd-vhosts.conf" >> $dtd_cfg_event_short/core/apache2/conf/httpd.conf
 
   for track in "${dtd_src_tracks[@]}"
   do
@@ -75,10 +75,10 @@ dtd_build_win_tracks() {
     eval dtd_host=\$dtd_track_${track}_host
     # Use the default vhost template for the first defined track.
     if [ $default_vhost = 1 ]; then
-      cat $dtd_build_dir/lib/win/default_vhost.conf | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" > $dtd_cfg_event_short/core/apache/conf/dtd-vhosts.conf
+      cat $dtd_build_dir/lib/win/default_vhost.conf | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" > $dtd_cfg_event_short/core/apache2/conf/dtd-vhosts.conf
       default_vhost=0
     else
-      cat $dtd_build_dir/lib/win/vhost.conf | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_cfg_event_short/core/apache/conf/dtd-vhosts.conf
+      cat $dtd_build_dir/lib/win/vhost.conf | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_cfg_event_short/core/apache2/conf/dtd-vhosts.conf
     fi
   done
 }
@@ -103,7 +103,7 @@ dtd_build_win_bat() {
 dtd_build_win_cleanup() {
   cd $dtd_build_dir/tmp
   # Remove Uniserver readme files.
-  rm $dtd_cfg_event_short/ZeroXI*.read_me.txt
+  rm $dtd_cfg_event_short/ZeroXI*read_me.txt
   # Clean up www. Then copy the docroots
   rm -R $dtd_cfg_event_short/www
 }
