@@ -93,14 +93,14 @@ dtd_build_win_bat() {
   # Then transform the start file
   cat $dtd_build_dir/lib/win/bat/dtd-start.bat | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" > $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
   mkdir $dtd_build_dir/tmp/$dtd_cfg_event_short/core/drush/aliases
-  touch $dtd_build_dir/tmp/$dtd_cfg_event_short/core/drush/aliases.drushrc.php
+  touch $dtd_build_dir/tmp/$dtd_cfg_event_short/core/drush/aliases/aliases.drushrc.php
   for track in "${dtd_src_tracks[@]}"; do
     # Now add an db section for each track
     eval dtd_dump=\$dtd_src_${track}_sql
     cat $dtd_build_dir/lib/win/bat/dtd-init.bat | sed "s/_DTD_DB_DUMP_/${dtd_dump}/g" | sed "s/_DTD_USER_/${dtd_cfg_auth_user}/g" | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" | sed "s/_DTD_DB_/${track}/g" >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
     # And add a section to the site alias drushrc file.
     eval dtd_host=\$dtd_src_${track}_host
-    cat $dtd_build_dir/lib/win/site-alias.php | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_cfg_event_short/core/drush/aliases.drushrc.php
+    cat $dtd_build_dir/lib/win/site-alias.php | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_cfg_event_short/core/drush/aliases/aliases.drushrc.php
   done
   cat $dtd_build_dir/lib/win/bat/dtd-init-done.bat >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
 
