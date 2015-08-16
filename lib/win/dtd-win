@@ -3,12 +3,12 @@
 # This will unpack and configure the uniserverz from separate components.
 
 dtd_build_win() {
-  pushd $dtd_buid_dir/tmp
+  pushd $dtd_build_dir/tmp
   dtd_build_win_extract
   # Add the vhost configs
   dtd_buid_win_tracks
 
-  dtd_build_win_configure
+  dtd_build_win_bat
   # Add a file to check if the db import hasn't happened.
   touch tmp/fresh_install.txt
   # Cleanup
@@ -53,7 +53,7 @@ dtd_build_win_compress() {
   rm dtd-win.7z
   7z a -mx=9 dtd-win.7z $dtd_cfg_event_short
   # Create a self extracting windows executable
-  cat $dtd_build_dir/var/lib/win/dtd.sfx dtd-win.7z > $dtd_build_dir/var/build/win/$dtd_cfg_event_short-win.exe
+  cat $dtd_build_dirlib/win/dtd.sfx dtd-win.7z > $dtd_build_dir/var/build/win/$dtd_cfg_event_short-win.exe
 }
 
 dtd_buid_win_tracks() {
