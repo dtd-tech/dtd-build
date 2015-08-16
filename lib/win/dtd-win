@@ -3,6 +3,7 @@
 # This will unpack and configure the uniserverz from separate components.
 
 dtd_build_win() {
+  echo "Starting Windows build..."
   pushd $dtd_build_dir/tmp
   dtd_build_win_extract
   # Add the vhost configs
@@ -17,22 +18,25 @@ dtd_build_win() {
   dtd_build_win_compress
   # We're done here.
   popd
+  echo "Windows build complete."
 }
 
 dtd_build_win_extract() {
   # First extract the controller
-  7z x -y $dtd_build_dir/var/sources/win/ZeroXI_controller_*.exe
+  echo "Extracting UniServerZ components..."
+  7z -o. x -y $dtd_build_dir/var/sources/win/ZeroXI_controller_*.exe > /dev/null
   mv UniServerZ $dtd_cfg_event_short
   cd $dtd_cfg_event_short
   # Extract Apache
-  7z x -y $dtd_build_dir/var/sources/win/ZeroXI_apache_*.exe
+  7z -o. x -y $dtd_build_dir/var/sources/win/ZeroXI_apache_*.exe > /dev/null
   # Extract mysql
-  7z x -y $dtd_build_dir/var/sources/win/ZeroXI_mysql_*.exe
+  7z -o. x -y $dtd_build_dir/var/sources/win/ZeroXI_mysql_*.exe > /dev/null
   # Extract php
-  7z x -y $dtd_build_dir/var/sources/win/ZeroXI_php_*.exe
+  7z -o. x -y $dtd_build_dir/var/sources/win/ZeroXI_php_*.exe > /dev/null
   # Etract phpmyadmin
-  7z x -y $dtd_build_dir/var/sources/win/ZeroXI_phpmyadmin_*.exe
+  7z -o. x -y $dtd_build_dir/var/sources/win/ZeroXI_phpmyadmin_*.exe > /dev/null
   # Add composer
+  echo "Extracting Composer and Drush..."
   cd core
   mkdir composer
   cd composer
@@ -43,6 +47,7 @@ dtd_build_win_extract() {
   tar xzf $dtd_build_dir/var/build/drush/drush.tgz
   cd ..
   # Add all tracks
+  echo "Extracting tracks..."
   unzip -qq $dtd_build_dir/var/build/tracks/$dtd_cfg_event_short-tracks.zip
   cd ..
 }
@@ -51,12 +56,15 @@ dtd_build_win_compress() {
   cd $dtd_build_dir/tmp
   # Compress using 7z and max compression rate.
   rm dtd-win.7z
-  7z a -mx=9 dtd-win.7z $dtd_cfg_event_short
+  echo "Compressing Windows environment..."
+  7z a -mx=9 dtd-win.7z $dtd_cfg_event_short > /dev/null
   # Create a self extracting windows executable
+  echo "Making executable..."
   cat $dtd_build_dir/lib/win/dtd.sfx dtd-win.7z > $dtd_build_dir/var/build/win/$dtd_cfg_event_short-win.exe
 }
 
 dtd_buid_win_tracks() {
+  echo "Generating Apache vhost for Windows..."
   default_host=1
   cd $dtd_build_dir/tmp
   echo "Include conf/extra/dtd-vhosts.conf" >> $dtd_cfg_event_short/core/apache/conf/httpd.conf
@@ -76,6 +84,7 @@ dtd_buid_win_tracks() {
 }
 
 dtd_build_win_bat() {
+  echo "Generating Windows batchfiles for startup, stop and Drush..."
   cd $dtd_build_dir/tmp
   # Firt copy the stop and drush files.
   cp $dtd_build_dir/lib/win/bat/dtd-stop.bat $dtd_cfg_event_short/$dtd_cfg_event_short-stop.bat
