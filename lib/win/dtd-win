@@ -72,7 +72,7 @@ dtd_build_win_tracks() {
   for track in "${dtd_src_tracks[@]}"
   do
     # Then modify and add a vhost for each track.
-    eval dtd_host=\$dtd_track_${track}_host
+    eval dtd_host=\$dtd_src_${track}_host
     # Use the default vhost template for the first defined track.
     if [ $default_vhost = 1 ]; then
       cat $dtd_build_dir/lib/win/default_vhost.conf | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" > $dtd_cfg_event_short/core/apache2/conf/dtd-vhosts.conf
@@ -93,10 +93,10 @@ dtd_build_win_bat() {
   cat $dtd_build_dir/lib/win/bat/dtd-start.bat | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" > $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
   # Now add an db section for each track
   for track in "${dtd_src_tracks[@]}"; do
-    eval dtd_dump=\$dtd_track_${track}_sql
+    eval dtd_dump=\$dtd_src_${track}_sql
     cat $dtd_build_dir/lib/win/bat/dtd-init.bat | sed "s/_DTD_DB_DUMP_/${dtd_dump}/g" | sed "s/_DTD_USER_/${dtd_cfg_auth_user}/g" | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" | sed "s/_DTD_DB_/${track}/g" >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
   done
-  cat $dtd_build_dir/lib/win/bat/dtd-init.bat >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
+  cat $dtd_build_dir/lib/win/bat/dtd-init-done.bat >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
 
 }
 

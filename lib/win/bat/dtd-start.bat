@@ -21,4 +21,4 @@ ECHO Starting MySQL database.
 UniController.exe start_mysql
 
 REM Set root password.
-core\mysql\mysqladmin.exe -u root --password=root password _DTD_PASSWORD_
+core\mysql\bin\mysqladmin.exe -u root --password=root password _DTD_PASSWORD_
