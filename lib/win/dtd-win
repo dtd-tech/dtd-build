@@ -6,7 +6,7 @@ dtd_build_win() {
   pushd $dtd_build_dir/tmp
   dtd_build_win_extract
   # Add the vhost configs
-  dtd_buid_win_tracks
+  dtd_build_win_tracks
 
   dtd_build_win_bat
   # Add a file to check if the db import hasn't happened.
@@ -40,10 +40,10 @@ dtd_build_win_extract() {
   gunzip composer.gz
   cd ..
   # Add Drush
-  tar xzvf $dtd_build_dir/var/build/drush/drush.tgz
+  tar xzf $dtd_build_dir/var/build/drush/drush.tgz
   cd ..
   # Add all tracks
-  unzip $dtd_build_dir/var/build/tracks/$dtd_cfg_event_short-tracks.zip
+  unzip -qq $dtd_build_dir/var/build/tracks/$dtd_cfg_event_short-tracks.zip
   cd ..
 }
 
@@ -53,7 +53,7 @@ dtd_build_win_compress() {
   rm dtd-win.7z
   7z a -mx=9 dtd-win.7z $dtd_cfg_event_short
   # Create a self extracting windows executable
-  cat $dtd_build_dirlib/win/dtd.sfx dtd-win.7z > $dtd_build_dir/var/build/win/$dtd_cfg_event_short-win.exe
+  cat $dtd_build_dir/lib/win/dtd.sfx dtd-win.7z > $dtd_build_dir/var/build/win/$dtd_cfg_event_short-win.exe
 }
 
 dtd_buid_win_tracks() {
@@ -66,7 +66,7 @@ dtd_buid_win_tracks() {
     # Then modify and add a vhost for each track.
     eval dtd_host=\$dtd_track_${track}_host
     # Use the default vhost template for the first defined track.
-    if [ $default_vhost=1 ]; then
+    if [ $default_vhost = 1 ]; then
       cat $dtd_build_dir/lib/win/default_vhost.conf | sed 's/_DTD_TRACK_/${track}/g' | sed 's/_DTD_HOST_/${dtd_host}/g' > $dtd_cfg_event_short/core/apache/conf/dtd-vhosts.conf
       default_vhost=0
     else
@@ -85,7 +85,7 @@ dtd_build_win_bat() {
   # Now add an db section for each track
   for track in "${dtd_src_tracks[@]}"; do
     eval dtd_dump=\$dtd_track_${track}_sql
-    cat $dtd_build_dir/lib/win/bat/dtd-init.bat | sed 's/_DTD_DB_DUMP_/${dtd_dump}/g | sed 's/_DTD_USER_/${dtd_cfg_auth_user}/g' | sed 's/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g' | sed 's/_DTD_DB_/${track}/g' >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
+    cat $dtd_build_dir/lib/win/bat/dtd-init.bat | sed 's/_DTD_DB_DUMP_/${dtd_dump}/g' | sed 's/_DTD_USER_/${dtd_cfg_auth_user}/g' | sed 's/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g' | sed 's/_DTD_DB_/${track}/g' >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
   done
   cat $dtd_build_dir/lib/win/bat/dtd-init.bat >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
 
@@ -93,7 +93,7 @@ dtd_build_win_bat() {
 
 dtd_build_win_cleanup() {
   # Remove Uniserver readme files.
-  rm dtd-win/ZeroXI*.read_me.txt
+  rm $dtd_cfg_event_short/ZeroXI*.read_me.txt
   # Clean up www. Then copy the docroots
-  rm -R dtd-win/www
+  rm -R $dtd_cfg_event_short/www
 }
