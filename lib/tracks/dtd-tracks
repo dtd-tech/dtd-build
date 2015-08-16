@@ -35,6 +35,6 @@ dtd_build_tracks() {
   # Create dtd-tracks.zip
   rm $dtd_build_dir/var/build/tracks/$dtd_cfg_event_short-tracks.zip
   pushd $dtd_build_dir/tmp
-  zip -r $dtd_build_dir/var/build/tracks/$dtd_cfg_event_short-tracks.zip $dtd_build_dir/tmp/tracks
+  zip -9 -r $dtd_build_dir/var/build/tracks/$dtd_cfg_event_short-tracks.zip tracks
   popd
 }
