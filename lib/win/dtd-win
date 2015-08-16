@@ -8,10 +8,10 @@ dtd_build_win() {
   dtd_build_win_extract
   # Add the vhost configs
   dtd_build_win_tracks
-
+  # Batch file generation
   dtd_build_win_bat
-  # Add a file to check if the db import hasn't happened.
-  touch  $dtd_build_dir/tmp/$dtd_cfg_event_short/tmp/fresh_install.txt
+  # Additional configuration
+  dtd_build_win_configure
   # Cleanup
   dtd_build_win_cleanup
   # Compress
@@ -67,7 +67,7 @@ dtd_build_win_tracks() {
   echo "Generating Apache vhost for Windows..."
   default_vhost=1
   cd $dtd_build_dir/tmp
-  echo "Include conf/extra/dtd-vhosts.conf" >> $dtd_cfg_event_short/core/apache2/conf/httpd.conf
+  echo "Include conf/dtd-vhosts.conf" >> $dtd_cfg_event_short/core/apache2/conf/httpd.conf
 
   for track in "${dtd_src_tracks[@]}"
   do
@@ -94,9 +94,22 @@ dtd_build_win_bat() {
   # Now add an db section for each track
   for track in "${dtd_src_tracks[@]}"; do
     eval dtd_dump=\$dtd_src_${track}_sql
-    cat $dtd_build_dir/lib/win/bat/dtd-init.bat | sed "s/_DTD_DB_DUMP_/${dtd_dump}/g" | sed "s/_DTD_USER_/${dtd_cfg_auth_user}/g" | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" | sed "s/_DTD_DB_/${track}/g" >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
+    cat $dtd_build_dir/lib/win/bat/dtd-init.bat | sed "s/_DTD_DB_DUMP_/tracks\\${track}\\${dtd_dump}/g" | sed "s/_DTD_USER_/${dtd_cfg_auth_user}/g" | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" | sed "s/_DTD_DB_/${track}/g" >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
   done
   cat $dtd_build_dir/lib/win/bat/dtd-init-done.bat >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
+
+}
+
+dtd_build_win_configure() {
+  echo "Configuring Windows environment..."
+  # Copy over ini files.
+  cp $dtd_build_dir/lib/win/us_config/*.ini $dtd_buid_dir/tmp/$dtd_cfg_event_short/home/us_config/
+  # Set password file.
+  echo $dtd_cfg_auth_password > $dtd_build_dir/tmp/$dtd_cfg_event_short/htpasswd/mysql/passwd.txt
+  # Copy favicon
+  cp $dtd_build_dir/lib/media/favicon.ico $dtd_build_dir/tmp/dtd_cfg_event_short/home/us_config/
+  # Add a file to check if the db import hasn't happened.
+  touch  $dtd_build_dir/tmp/$dtd_cfg_event_short/tmp/fresh_install.txt
 
 }
 
