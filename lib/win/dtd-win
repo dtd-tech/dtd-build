@@ -22,8 +22,8 @@ dtd_build_win() {
 dtd_build_win_extract() {
   # First extract the controller
   7z x -y $dtd_build_dir/var/sources/win/ZeroXI_controller_*.exe
-  mv UniServerZ dtd-win
-  cd dtd-win
+  mv UniServerZ $dtd_cfg_event_short
+  cd $dtd_cfg_event_short
   # Extract Apache
   7z x -y $dtd_build_dir/var/sources/win/ZeroXI_apache_*.exe
   # Extract mysql
@@ -43,31 +43,52 @@ dtd_build_win_extract() {
   tar xzvf $dtd_build_dir/var/build/drush/drush.tgz
   cd ..
   # Add all tracks
-  tar xzvf $dtd_build_dir/var/build/tracks/dtd-tracks.tgz
+  unzip $dtd_build_dir/var/build/tracks/$dtd_cfg_event_short-tracks.zip
   cd ..
 }
 
 dtd_build_win_compress() {
   cd $dtd_build_dir/tmp
   # Compress using 7z and max compression rate.
-  7z a -mx=9 dtd-win.7z dtd-win
-  # Create a self extracint windows executable
-  cat $dtd_build_dir/var/lib/win/dtd.sfx dtd-win.7z > $dtd_build_dir/var/build/win/dtd-win.exe
+  rm dtd-win.7z
+  7z a -mx=9 dtd-win.7z $dtd_cfg_event_short
+  # Create a self extracting windows executable
+  cat $dtd_build_dir/var/lib/win/dtd.sfx dtd-win.7z > $dtd_build_dir/var/build/win/$dtd_cfg_event_short-win.exe
 }
 
 dtd_buid_win_tracks() {
+  default_host=1
   cd $dtd_build_dir/tmp
-  echo "Include conf/extra/dtd-vhosts.conf" >> dtd-win/core/apache/conf/httpd.conf
-  # First start with the main track as the default vhost
-  cp $dtd_build_dir/lib/win/default_vhost.conf dtd-win/core/apache/conf/dtd-vhosts.conf
+  echo "Include conf/extra/dtd-vhosts.conf" >> $dtd_cfg_event_short/core/apache/conf/httpd.conf
 
-  for track in "${dtd_track_tracks[@]}"
+  for track in "${dtd_src_tracks[@]}"
   do
-    # The modify and add a vhost for each track.
+    # Then modify and add a vhost for each track.
     eval dtd_host=\$dtd_track_${track}_host
-    cat dtd_build_dir/lib/win/vhost.conf | sed 's/_DTD_TRACK_/${track}/g' | sed 's/_DTD_HOST_/${dtd_host}g' >> dtd-win/core/apache/conf/dtd-vhosts.conf
-    # 
+    # Use the default vhost template for the first defined track.
+    if [ $default_vhost=1 ]; then
+      cat $dtd_build_dir/lib/win/default_vhost.conf | sed 's/_DTD_TRACK_/${track}/g' | sed 's/_DTD_HOST_/${dtd_host}/g' > $dtd_cfg_event_short/core/apache/conf/dtd-vhosts.conf
+      default_vhost=0
+    else
+      cat $dtd_build_dir/lib/win/vhost.conf | sed 's/_DTD_TRACK_/${track}/g' | sed 's/_DTD_HOST_/${dtd_host}/g' >> $dtd_cfg_event_short/core/apache/conf/dtd-vhosts.conf
+    fi
   done
+}
+
+dtd_build_win_bat() {
+  cd $dtd_build_dir/tmp
+  # Firt copy the stop and drush files.
+  cp $dtd_build_dir/lib/win/bat/dtd-stop.bat $dtd_cfg_event_short/$dtd_cfg_event_short-stop.bat
+  cp $dtd_build_dir/lib/win/bat/dtd-drush.bat $dtd_cfg_event_short/$dtd_cfg_event_short-drush.bat
+  # Then transform the start file
+  cat $dtd_build_dir/lib/win/bat/dtd-start.bat | sed 's/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g' > $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
+  # Now add an db section for each track
+  for track in "${dtd_src_tracks[@]}"; do
+    eval dtd_dump=\$dtd_track_${track}_sql
+    cat $dtd_build_dir/lib/win/bat/dtd-init.bat | sed 's/_DTD_DB_DUMP_/${dtd_dump}/g | sed 's/_DTD_USER_/${dtd_cfg_auth_user}/g' | sed 's/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g' | sed 's/_DTD_DB_/${track}/g' >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
+  done
+  cat $dtd_build_dir/lib/win/bat/dtd-init.bat >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
+
 }
 
 dtd_build_win_cleanup() {
