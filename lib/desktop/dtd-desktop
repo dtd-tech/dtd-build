@@ -5,7 +5,7 @@
 # * 5-8 GB of storage.
 
 
-dtd__build_desktop_remaster_prep() {
+dtd_build_desktop_remaster_prep() {
   # Create the remaster dir
   mkdir -p $dtd_build_dir/tmp/desktop/remaster
   # Copy the customization-scripts template
@@ -23,6 +23,7 @@ dtd__build_desktop_remaster_prep() {
 dtd_build_desktop() {
   # Build the iso.
   dtd_build_desktop_remaster_prep
+  dtd_build_desktop_tracks
   uck-remaster \
     $dtd_build_dir/var/sources/desktop/$dtd_src_desktop_file \
     $dtd_build_dir/tmp/desktop/customization-scripts \
