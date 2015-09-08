@@ -78,7 +78,7 @@ if [ -n "$LIVECD_LANGS" ]; then
 		# Add language specific packages not releated to kde or gnome
 		add=`echo "$REPO_LANGS" | grep -- -"$l" | grep -Ev "kde|gnome"`
 		PACKAGES_TO_INSTALL="$PACKAGES_TO_INSTALL $add"
-	
+
 		# Add desktop specific language packages
 		if [ -n "$DESKTOP_FLAVOURS" ]; then
 			for f in $DESKTOP_FLAVOURS; do
@@ -89,17 +89,17 @@ if [ -n "$LIVECD_LANGS" ]; then
                 # Add firefox locales
                 add=`echo "firefox-locale-"$l"`
                 PACKAGES_TO_INSTALL="$PACKAGES_TO_INSTALL $add"
-	
+
 		if [ -z "$LANGPACKS_CONCATENATED" ]; then
 			LANGPACKS_CONCATENATED="$l"
 		else
 			LANGPACKS_CONCATENATED="$LANGPACKS_CONCATENATED|$l"
 		fi
 	done
-	
+
 	install_packages $PACKAGES_TO_INSTALL ||
 		failure "Installing language packs failed, error=$?"
-	
+
 	# NOTE:	we first install selected language packs, then remove others as
 	#	installing a language pack might pull in packages that were not
 	#	previously present
@@ -115,15 +115,24 @@ apt-get upgrade --awsume-yes --force-yes
 # Installing dtd-stack.
 source $SCRIPT_DIR/dtd-stack
 
-# Install Drush
-source $SCRIPT_DIR/dtd-drush
+# Install composer
+mkdir -p /opt/composer
+cp $SCRIPT_DIR/composer.gz /opt/composer
+gunzip /opt/composer/composer.gz
+ln -s /opt/composer/composer /usr/local/bin/composer
+
+# Install drush
+tar xzf $SCRIPT_DIR/drush.tgz -C /opt
+ln -s /opt/drush/drush /usr/local/bin/drush
 
 # Extract tracks
 mkdir -p /opt/dtd
-tar xzf $SCRIPT_DIR/dtd-tracks.tgz -C /opt/dtd
+unzip $SCRIPT_DIR/dtd-tracks.zip -d /var/www/html
+
+# Initialize sites
 
 # Install Atom
 
 # Install gate-one
-	
+
 echo "Done"

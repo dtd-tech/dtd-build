@@ -5,27 +5,39 @@
 # * 5-8 GB of storage.
 
 
-dtd_remaster_prep() {
+dtd__build_desktop_remaster_prep() {
   # Create the remaster dir
   mkdir -p $dtd_build_dir/tmp/desktop/remaster
   # Copy the customization-scripts template
   cp -R $dtd_build_dir/lib/desktop/customization-scripts $dtd_build_dir/tmp/desktop/
-  # Copy the dtd package into the scripts dir so it's copied into the chroot.
-  cp $dtd_build_dir/var/build/tracks/dtd-tracks.tgz $dtd_build_dir/tmp/desktop/customization-scripts/
-  # Copy stack and drush installer scripts.
-  
+  # Copy the tracks package into the scripts dir so it's copied into the chroot.
+  cp $dtd_build_dir/var/build/tracks/$dtd_cfg_event_short-tracks.zip $dtd_build_dir/tmp/desktop/customization-scripts/tracks.zip
+  # Copy composer and drush
+  cp $dtd_build_dir/var/build/composer/composer.gz $dtd_build_dir/tmp/desktop/customization-scripts/
+  cp $dtd_build_dir/var/build/drush/drush.tgz $dtd_build_dir/tmp/desktop/customization-scripts/
+  # Copy stack script.
   cp $dtd_build_dir/bin/dtd-stack $dtd_build_dir/tmp/desktop/customization-scripts/
-  cp $dtd_build_dir/bin/dtd-drush $dtd_build_dir/tmp/desktop/customization-scripts/
 
 }
 
 dtd_build_desktop() {
   # Build the iso.
-  dtd_remaster_prep desktop
+  dtd_build_desktop_remaster_prep
   uck-remaster \
     $dtd_build_dir/var/sources/desktop/$dtd_src_desktop_file \
     $dtd_build_dir/tmp/desktop/customization-scripts \
     $dtd_build_dir/tmp/desktop/remaster
-  mv $dtd_build_dir/tmp/desktop/remaster-new-files/livecd.iso $dtd_build_dir/var/build/desktop/$dtd_target_desktop_iso_file
+  mv $dtd_build_dir/tmp/desktop/remaster/remaster-new-files/livecd.iso $dtd_build_dir/var/build/desktop/$dtd_target_desktop_iso_file
 }
 
+dtd_build_desktop_tracks() {
+  touch $dtd_build_dir/tmp/desktop/customization-scripts/dtd-init
+  for track in "${dtd_src_tracks[@]}"; do
+    # Now add an db section for each track
+    eval dtd_dump=\$dtd_src_${track}_sql
+    cat $dtd_build_dir/lib/desktop/dtd-init | sed "s/_DTD_DB_DUMP_/${dtd_dump}/g" | sed "s/_DTD_USER_/${dtd_cfg_auth_user}/g" | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" | sed "s/_DTD_DB_/${track}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/dtd-init
+    # And add a section to the site alias drushrc file.
+    eval dtd_host=\$dtd_src_${track}_host
+    cat $dtd_build_dir/lib/win/site-alias.php | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/aliases.drushrc.php
+  done
+}
