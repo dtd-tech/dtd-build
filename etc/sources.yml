@@ -3,8 +3,8 @@ sources: "desktop server composer drush"
 desktop:
   method: "torrent"
   url: "http://cdimage.ubuntu.com/lubuntu/releases/14.04.3/release/lubuntu-14.04.3-desktop-i386.iso.torrent"
-  file: "lubuntu-14.04.2-desktop-i386.iso"
-  size: 737148928
+  file: "lubuntu-14.04.3-desktop-i386.iso"
+  size: 750780416
   md5: "1152f2b9eb1342e8c47421e58a6fda6a"
 server:
   method: "torrent"
