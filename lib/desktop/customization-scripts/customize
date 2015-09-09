@@ -63,7 +63,7 @@ prepare_install || failure "Preparing installation failed, error=$?"
 # Cleanup of unused packages.
 apt-get --purge remove --assume-yes --force-yes thunderbird gimp gnumeric abiword hplip libsane poppler-data libgutenprint2 parole xfburn gmusicbrowser gmusicbrowser blueman simple-scan pulseaudio bluez pidgin cups transmission-gtk gnome-sudoku gnome-mines orage
 
-apt-get autoremove --assume-yes --force-yes
+# apt-get autoremove --assume-yes --force-yes
 
 # List of packages to install to support the selected languages:
 PACKAGES_TO_INSTALL=""
@@ -129,7 +129,7 @@ ln -s /opt/drush/drush /usr/local/bin/drush
 
 # Extract tracks
 mkdir -p /opt/dtd
-unzip $SCRIPT_DIR/tracks.zip -d /var/www/html
+unzip -t $SCRIPT_DIR/tracks.zip -d /var/www/html > /dev/null 2>&1
 
 # Initialize sites
 source $SCRIPT_DIR/dtd-init
@@ -144,4 +144,8 @@ ln -s /etc/apache2/sites-available/dtd-vhosts.conf /etc/apache2/sites-enabled/00
 
 # Install gate-one
 
+# Install virt-what
+apt-get install --assume-yes --force-yes virt-what
+# Download but don't install guest additions for virtualbox and vmware.
+apt-get install --assume-yes --force-yes --download-only virtualbox-guest-x11 open-vm-tools-desktop
 echo "Done"
