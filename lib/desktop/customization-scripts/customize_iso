@@ -189,3 +189,9 @@ then
 		: do nothing - initrd.lz not used
 	fi
 fi
+
+# Copy preseed files
+cp $SCRIPT_DIR/*.seed $ISO_REMASTER_DIR/preseed
+
+#Copy Isolinux menu
+cp $SCRIPT_DIR/txt.cfg $ISO_REMASTER_DIR/isolinux

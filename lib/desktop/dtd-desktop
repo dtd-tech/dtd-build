@@ -32,13 +32,24 @@ dtd_build_desktop() {
 }
 
 dtd_build_desktop_tracks() {
+  default_vhost=1
   touch $dtd_build_dir/tmp/desktop/customization-scripts/dtd-init
   for track in "${dtd_src_tracks[@]}"; do
+    # Determine hostname.
+    eval dtd_host=\$dtd_src_${track}_host
+    # Use the default vhost template for the first defined track.
+    if [ $default_vhost = 1 ]; then
+      cat $dtd_build_dir/lib/desktop/default_vhost.conf | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" > $dtd_build_dir/tmp/desktop/customization-scripts/dtd-vhosts.conf
+      default_vhost=0
+    else
+      cat $dtd_build_dir/lib/desktop/vhost.conf | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/dtd-vhosts.conf
+    fi
+
     # Now add an db section for each track
     eval dtd_dump=\$dtd_src_${track}_sql
     cat $dtd_build_dir/lib/desktop/dtd-init | sed "s/_DTD_DB_DUMP_/${dtd_dump}/g" | sed "s/_DTD_USER_/${dtd_cfg_auth_user}/g" | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" | sed "s/_DTD_DB_/${track}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/dtd-init
     # And add a section to the site alias drushrc file.
     eval dtd_host=\$dtd_src_${track}_host
-    cat $dtd_build_dir/lib/win/site-alias.php | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/aliases.drushrc.php
+    cat $dtd_build_dir/lib/desktop/site-alias.php | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/aliases.drushrc.php
   done
 }
