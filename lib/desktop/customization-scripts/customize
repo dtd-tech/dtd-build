@@ -129,7 +129,7 @@ ln -s /opt/drush/drush /usr/local/bin/drush
 
 # Extract tracks
 mkdir -p /opt/dtd
-unzip -t $SCRIPT_DIR/tracks.zip -d /var/www/html > /dev/null 2>&1
+unzip $SCRIPT_DIR/tracks.zip -d /var/www/html
 
 # Initialize sites
 source $SCRIPT_DIR/dtd-init
