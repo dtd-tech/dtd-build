@@ -7,11 +7,12 @@ export DEBIAN_FRONTEND=noninteractive
 
 # install apache
 apt-get -q -y install apache2 apache2-utils
-
+a2enmod rewrite
 
 # Install mysql server
 apt-get -q -y install mysql-server
 # set root password to 'dtd'
+sleep 10
 mysqladmin -u root password dtd
 
 # Install and configure php

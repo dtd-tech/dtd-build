@@ -111,7 +111,7 @@ if [ -n "$LIVECD_LANGS" ]; then
 fi
 
 # Installing updates.
-apt-get upgrade --assume-yes --force-yes
+apt-get dist-upgrade --assume-yes --force-yes
 
 # Installing dtd-stack.
 source $SCRIPT_DIR/dtd-stack
@@ -146,13 +146,13 @@ ln -s /etc/apache2/sites-available/dtd-vhosts.conf /etc/apache2/sites-enabled/00
 # Install gate-one
 
 # Install virt-what
-apt-get install --assume-yes --force-yes virt-what
+apt-get install --assume-yes --force-yes virt-what apt-rdepends
 # Download but don't install guest additions for virtualbox and vmware.
 apt-get apt-get download $(apt-rdepends virtualbox-guest-x11 |grep -v "^ ")
-apt-get apt-get download $(apt-rdepends open-vm-tools-desktop |grep -v "^ ") 
+apt-get apt-get download $(apt-rdepends open-vm-tools-desktop |grep -v "^ ")
 
 # Append hostfile
 thisip=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
-cat $SCRIPT_DIR/hosts | sed "s/_IP_/${thisip}/g" >> /etc/hosts
+cat $SCRIPT_DIR/hosts | sed "s/_IP_/${thisip}/g" | tr -d '\n' >> /etc/hosts
 
 echo "Done"

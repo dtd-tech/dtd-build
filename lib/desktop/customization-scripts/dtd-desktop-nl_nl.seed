@@ -33,7 +33,7 @@ d-i netcfg/choose_interface select auto
 # Any hostname and domain names assigned from dhcp take precedence over
 # values set here. However, setting the values still prevents the questions
 # from being shown, even if values come from dhcp.
-d-i netcfg/get_hostname string dtdbuilder
+d-i netcfg/get_hostname string dtd2015
 d-i netcfg/get_domain string dtd
 
 ### Mirror settings
@@ -67,7 +67,7 @@ d-i clock-setup/ntp boolean false
 # If the system has free space you can choose to only partition that space.
 # This is only honoured if partman-auto/method (below) is not set.
 # Alternatives: custom, some_device, some_device_crypto, some_device_lvm.
-#d-i partman-auto/init_automatically_partition select biggest_free
+d-i partman-auto/init_automatically_partition select biggest_free
 
 # Alternatively, you may specify a disk to partition. If the system has only
 # one disk the installer will default to using that, but otherwise the device
@@ -155,10 +155,10 @@ d-i user-setup/encrypt-home boolean false
 #d-i debian-installer/allow_unauthenticated boolean true
 
 ### Package selection
-tasksel tasksel/first multiselect ssh-server
+# tasksel tasksel/first multiselect ssh-server
 
 # Individual additional packages to install
-d-i pkgsel/include string openssh-server build-essential apache2 apache2-utils php5 php5-mysql php5-cli php5-gd php5-mcrypt php5-curl mysql-server
+# d-i pkgsel/include string openssh-server build-essential apache2 apache2-utils php5 php5-mysql php5-cli php5-gd php5-mcrypt php5-curl mysql-server
 # Whether to upgrade packages after debootstrap.
 # Allowed values: none, safe-upgrade, full-upgrade
 #d-i pkgsel/upgrade select none
