@@ -34,6 +34,7 @@ dtd_build_desktop() {
 dtd_build_desktop_tracks() {
   default_vhost=1
   touch $dtd_build_dir/tmp/desktop/customization-scripts/dtd-init
+  echo "_IP_  " > $dtd_build_dir/tmp/desktop/customization-scripts/hosts
   for track in "${dtd_src_tracks[@]}"; do
     # Determine hostname.
     eval dtd_host=\$dtd_src_${track}_host
@@ -44,6 +45,9 @@ dtd_build_desktop_tracks() {
     else
       cat $dtd_build_dir/lib/desktop/vhost.conf | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/dtd-vhosts.conf
     fi
+
+    # Add hostname to hostfile template
+    echo " $dtd_host" >> $dtd_build_dir/tmp/desktop/customization-scripts/hosts
 
     # Now add an db section for each track
     eval dtd_dump=\$dtd_src_${track}_sql
