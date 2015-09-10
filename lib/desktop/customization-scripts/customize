@@ -61,7 +61,13 @@ echo ">> Customizing: $rel, $kernel $arch"
 prepare_install || failure "Preparing installation failed, error=$?"
 
 # Cleanup of unused packages.
-apt-get --purge remove --assume-yes --force-yes thunderbird gimp gnumeric abiword hplip libsane poppler-data libgutenprint2 parole xfburn gmusicbrowser gmusicbrowser blueman simple-scan pulseaudio bluez pidgin cups transmission-gtk gnome-sudoku gnome-mines orage
+apt-get --purge remove --assume-yes --force-yes \
+  thunderbird gimp gnumeric abiword hplip libsane poppler-data libgutenprint2 \
+	parole xfburn gmusicbrowser gmusicbrowser blueman simple-scan pulseaudio \
+	bluez pidgin cups transmission-gtk gnome-sudoku gnome-mines orage audacious \
+	audacious-plugins guvcview mtpaint sylpheed pidgin-data libpurple0 \
+	libgoffice-0.10-10 gstreamer0.10-plugins-good update-notifier synaptic \
+	openprinting-ppds geoip-database libx264-142
 
 apt-get autoremove --assume-yes
 apt-get clean
@@ -111,7 +117,7 @@ if [ -n "$LIVECD_LANGS" ]; then
 fi
 
 # Installing updates.
-apt-get dist-upgrade --assume-yes --force-yes
+apt-get upgrade --assume-yes --force-yes
 
 # Installing dtd-stack.
 source $SCRIPT_DIR/dtd-stack
@@ -155,4 +161,5 @@ apt-get apt-get download $(apt-rdepends open-vm-tools-desktop |grep -v "^ ")
 thisip=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
 cat $SCRIPT_DIR/hosts | sed "s/_IP_/${thisip}/g" | tr -d '\n' >> /etc/hosts
 
+# apt-get dist-upgrade --assume-yes
 echo "Done"
