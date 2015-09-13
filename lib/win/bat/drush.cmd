@@ -1,4 +1,5 @@
 @ECHO off
+
 title "Drush: Drupal Shell"
 set "dtddir=%cd%"
 

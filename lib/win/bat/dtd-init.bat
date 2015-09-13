@@ -1,4 +1,5 @@
 @ECHO OFF
+
 REM This is a template to be used on all databases.
 
 ECHO Creating database _DTD_DB_

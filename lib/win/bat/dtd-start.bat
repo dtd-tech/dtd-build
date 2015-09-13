@@ -1,4 +1,5 @@
 @ECHO OFF
+
 REM Windows Bat File to start DTD live environment for Windows.
 
 REM First check if this is a resh build.
