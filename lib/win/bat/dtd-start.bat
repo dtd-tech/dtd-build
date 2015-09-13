@@ -26,6 +26,6 @@ core\mysql\bin\mysqladmin.exe -u root --password=root password _DTD_PASSWORD_
 REM Add path to site alias drushrc files
 REN core\drush\aliases\aliases.drushrc.php aliases.tmp
 ECHO ^<?php > core\drush\aliases\aliases.drushrc.php
-ECHO $dtd_root=%CD%; >> core\drush\aliases\aliases.drushrc.php
+ECHO '$dtd_root=%CD%'; >> core\drush\aliases\aliases.drushrc.php
 TYPE core\drush\aliases\aliases.tmp >> core\drush\aliases\aliases.drushrc.php
 DEL core\drush\aliases\aliases.tmp
