@@ -6,12 +6,6 @@ desktop:
   file: "lubuntu-14.04.3-desktop-i386.iso"
   size: 750780416
   md5: "1152f2b9eb1342e8c47421e58a6fda6a"
-server:
-  method: "torrent"
-  url: "http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-server-i386.iso.torrent"
-  file: "ubuntu-14.04.2-server-i386.iso"
-  size: 606076928
-  md5: "6478187442f331631b65f886cdd229ce"
 composer:
   method: "http"
   url: "https://getcomposer.org/composer.phar"

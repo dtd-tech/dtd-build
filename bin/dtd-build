@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # dtd-build
-# usage dtd-build [clean|source|build|update] [composer|drush|tracks|desktop|server|vm|vagrant|tools|win|usb|all]
+# usage dtd-build [clean|source|build|update] [composer|drush|tracks|desktop|vm|vagrant|tools|win|usb|all]
 dtd_build_dir="/opt/dtd-build"
 
 # Load common routines
@@ -62,10 +62,6 @@ case "$1" in
         source $dtd_build_dir/lib/desktop/dtd-desktop
         dtd_build_desktop
         ;;
-      server )
-        source $dtd_build_dir/lib/server/dtd-server
-        dtd_build_server
-        ;;
       win )
         source $dtd_build_dir/lib/win/dtd-win
         dtd_build_win
@@ -73,8 +69,6 @@ case "$1" in
       all | "" )
         source $dtd_build_dir/lib/desktop/dtd-desktop
         dtd_build_desktop
-        source $dtd_build_dir/lib/server/dtd-server
-        dtd_build_server
         source $dtd_buid_dir/lib/win/dtd-win
         dtd_build_win
         ;;
@@ -91,8 +85,6 @@ case "$1" in
     dtd_build_tracks
 
     dtd_build_win
-
-    dtd_build_server
 
     dtd_build_vm_server
 
