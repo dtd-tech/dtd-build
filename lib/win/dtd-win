@@ -114,6 +114,8 @@ dtd_build_win_configure() {
   echo $dtd_cfg_auth_password > $dtd_build_dir/tmp/$dtd_cfg_event_short/htpasswd/mysql/passwd.txt
   # Copy favicon
   cp $dtd_build_dir/lib/media/favicon.ico $dtd_build_dir/tmp/$dtd_cfg_event_short/home/us_config/
+  # Copy proxy definition file
+  cp $dtd_build_dir/lib/win/dtd.pac $dtd_builddir/tmp/$dtd_cfg_event_short/home/us_pac/
   # Add a file to check if the db import hasn't happened.
   touch  $dtd_build_dir/tmp/$dtd_cfg_event_short/tmp/fresh_install.txt
 
