@@ -24,9 +24,9 @@ win_controller:
   md5: "53513fefa96cf1b80cf3970e394f85d3"
 win_mysql:
   method: "http"
-  url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_mysql_5_6_26.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1439021890&use_mirror=cznic"
-  file: "ZeroXI_mysql_5_6_26.exe"
-  md5: "cab10a053d82f61f21f7e178df8fe927"
+  url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_mysql_5_5_46.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1443954071&use_mirror=netcologne"
+  file: "ZeroXI_mysql_5_5_46.exe"
+  md5: "5ac8091b5a23e4bfabc4630e042176d1"
 win_apache:
   method: "http"
   url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_apache_2_4_16_p.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1439024365&use_mirror=heanet"
@@ -34,14 +34,14 @@ win_apache:
   md5: "a1ee79b84348a8368042175b21218c0f"
 win_php:
   method: "http"
-  url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_php_5_5_27_p.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1439024430&use_mirror=heanet"
-  file: "ZeroXI_php_5_5_27_p.exe"
-  md5: "3a01122e4210e9eff44fa8cbbbdcb215"
-win_php:
+  url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_php_5_5_30_p.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1443954161&use_mirror=netix"
+  file: "ZeroXI_php_5_5_30_p.exe"
+  md5: "54664350cead26af8b5d412e2f968763"
+win_phpmyadmin:
   method: "http"
-  url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_phpmyadmin_4_4_12.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1439030627&use_mirror=cznic"
-  file: "ZeroXI_phpmyadmin_4_4_12.exe"
-  md5: "7881aae84e2eedc45771df8bc9038fc9"
+  url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_phpmyadmin_4_4_15.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1443954284&use_mirror=netix"
+  file: "ZeroXI_phpmyadmin_4_4_15.exe"
+  md5: "fc442ac3b63e5567a5c84622ec7772a7"
 
 ## DTD Tracks
 tracks: "main"

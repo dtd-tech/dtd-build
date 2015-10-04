@@ -123,6 +123,8 @@ dtd_build_win_cleanup() {
   cd $dtd_build_dir/tmp
   # Remove Uniserver readme files.
   rm $dtd_cfg_event_short/ZeroXI*read_me.txt
-  # Clean up www. Then copy the docroots
+  # Remove www.
   rm -R $dtd_cfg_event_short/www
+  # Convert batchfiles to DOS line endings
+  unix2dos *.bat
 }

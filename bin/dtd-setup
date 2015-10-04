@@ -11,7 +11,7 @@ apt-get remove -y transmission-gtk
 # Install dependencies
 apt-get update -y
 apt-get upgrade -y
-apt-get install -y git php5-cli curl uck syslinux virtualbox transmission-daemon transmission-remote zsync p7zip-full
+apt-get install -y git php5-cli curl uck syslinux virtualbox transmission-daemon transmission-remote zsync p7zip-full dos2unix
 
 pushd /opt
 git clone https://github.com/dtd-tech/dtd-build.git
@@ -19,4 +19,4 @@ popd
 
 
 # Create a GPG gpg-key
-gpg --gen-key
+# gpg --gen-key
