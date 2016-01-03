@@ -11,7 +11,7 @@
 # Once installation is complete, automatically power off.
 # d-i finish-install/reboot_in_progress note
 d-i debian-installer/exit/poweroff boolean true
-d-i ubiquity/summary note
+# d-i ubiquity/summary note
 ubiquity ubiquity/reboot boolean true
 ubiquity ubiquity/poweroff boolean true
 
@@ -56,6 +56,7 @@ ubiquity partman-auto/init_automatically_partition select Guided - use entire di
 ubiquity partman-auto/disk string /dev/sda
 ubiquity partman-auto/method string regular
 ubiquity partman-auto/choose_recipe select All files in one partition (recommended for new users)
+ubiquity partman-auto/confirm boolean true
 ubiquity partman/confirm_write_new_label boolean true
 ubiquity partman/choose_partition select Finish partitioning and write changes to disk
 ubiquity partman/confirm boolean true
@@ -98,13 +99,15 @@ d-i ubiquity/only-show-installable-languages boolean true
 d-i passwd/root-login boolean false
 
 # Mortal User
+d-i passwd/make-user boolean true
 d-i passwd/user-fullname string DTD
 d-i passwd/username string dtd
-# d-i passwd/user-password password dtd
-# d-i passwd/user-password-again password dtd
-d-i passwd/user-password-crypted password $1$RICmMw3K$70JT5cniIn3NUHZ.NNPUj0
+d-i passwd/user-password password dtd
+d-i passwd/user-password-again password dtd
+# d-i passwd/user-password-crypted password $1$RICmMw3K$70JT5cniIn3NUHZ.NNPUj0
 d-i passwd/auto-login boolean true
 d-i user-setup/allow-password-weak boolean true
+d-i user-setup/encrypt-home boolean false
 
 
 ####################################################################
