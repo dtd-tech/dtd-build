@@ -139,9 +139,9 @@ unzip $SCRIPT_DIR/tracks.zip -d /var/www/html
 
 # Initialize sites
 # /etc/init.d/mysql start
-cat $SCRIPT_DIR/dtd-init
+# cat $SCRIPT_DIR/dtd-init
 source $SCRIPT_DIR/dtd-init
-read -p "hit the any key"
+# read -p "hit the any key"
 # /etc/init.d/mysql stop
 
 # Add Apache vhosts
@@ -157,7 +157,7 @@ apt-get update
 apt-get install --assume-yes --force-yes atom
 
 # Install virt-what
-apt-get install --assume-yes --force-yes virt-what virtualbox-guest-x11
+apt-get install --assume-yes --force-yes virt-what virtualbox-guest-x11 virtualbox-guest-dkms dkms
 # Download but don't install guest additions for virtualbox and vmware.
 # apt-get download $(apt-rdepends virtualbox-guest-x11 |grep -v "^ ")
 # apt-get download $(apt-rdepends open-vm-tools-desktop |grep -v "^ ")
@@ -171,4 +171,6 @@ thisip=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  
 cat $SCRIPT_DIR/hosts | sed "s/_IP_/${thisip}/g" | tr -d '\n' >> /etc/hosts
 
 # apt-get dist-upgrade --assume-yes
+/etc/init.d/mysql stop
+/etc/init.d/apache2 stop
 echo "Done"
