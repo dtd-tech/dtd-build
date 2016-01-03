@@ -67,7 +67,7 @@ apt-get --purge remove --assume-yes --force-yes \
 	bluez pidgin cups transmission-gtk gnome-sudoku gnome-mines orage audacious \
 	audacious-plugins guvcview mtpaint sylpheed pidgin-data libpurple0 \
 	libgoffice-0.10-10 gstreamer0.10-plugins-good update-notifier synaptic \
-	openprinting-ppds geoip-database libx264-142
+	openprinting-ppds geoip-database libx264-142 light-locker
 
 apt-get autoremove --assume-yes
 apt-get clean
@@ -135,9 +135,11 @@ mkdir -p /opt/dtd
 unzip $SCRIPT_DIR/tracks.zip -d /var/www/html
 
 # Initialize sites
-/etc/init.d/mysql-server start
+# /etc/init.d/mysql start
+cat $SCRIPT_DIR/dtd-init
 source $SCRIPT_DIR/dtd-init
-/etc/init.d/mysql-server stop
+read -p "hit the any key"
+# /etc/init.d/mysql stop
 
 # Add Apache vhosts
 rm -f /etc/apache2/sites-enabled/*.conf
