@@ -9,9 +9,9 @@
 ####################################################################
 
 # Once installation is complete, automatically power off.
-# d-i finish-install/reboot_in_progress note
+d-i finish-install/reboot_in_progress note
 d-i debian-installer/exit/poweroff boolean true
-# d-i ubiquity/summary note
+d-i ubiquity/summary note
 ubiquity ubiquity/reboot boolean true
 ubiquity ubiquity/poweroff boolean true
 
@@ -24,10 +24,10 @@ unattended-upgrades unattended-upgrades/enable_auto_updates boolean false
 ####################################################################
 
 # Configure the sources.list
-d-i mirror/country string manual
+d-i mirror/country string nl
 d-i mirror/http/hostname  string archive.ubuntu.com
 d-i mirror/http/directory string /ubuntu/
-d-i apt-setup/use_mirror boolean false
+d-i apt-setup/use_mirror boolean true
 d-i apt-setup/mirror/error select Change mirror
 d-i apt-setup/multiverse boolean false
 d-i apt-setup/restricted boolean false
@@ -43,6 +43,7 @@ d-i apt-setup/partner boolean false
 d-i netcfg/enable boolean true
 d-i netcfg/choose_interface select auto
 d-i netcfg/disable_dhcp boolean false
+d-i netcfg/get_hostname string dtd-desktop
 
 
 ####################################################################
