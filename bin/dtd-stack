@@ -3,19 +3,21 @@
 # Script to install the LAMP stack on Ubuntu 14.04.x
 
 # We're assuming previous steps have performend an update
-export DEBIAN_FRONTEND=noninteractive
+# export DEBIAN_FRONTEND=noninteractive
 
 # install apache
-apt-get -q -y install apache2 apache2-utils
+apt-get -q -y install apache2 apache2-utils debconf-utils
 a2enmod rewrite
 
 # Install mysql server
+debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password dtd'
+debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password dtd'
 apt-get -q -y install mysql-server
 # set root password to 'dtd'
-sleep 10
-/etc/init.d/mysql start
-sleep 10
-mysqladmin -u root password dtd
+# sleep 10
+# /etc/init.d/mysql start
+# sleep 10
+# mysqladmin -u root password dtd
 
 
 # Install and configure php

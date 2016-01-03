@@ -117,7 +117,7 @@ if [ -n "$LIVECD_LANGS" ]; then
 fi
 
 # Installing updates.
-apt-get upgrade --assume-yes --force-yes
+# apt-get upgrade --assume-yes --force-yes
 
 # Installing dtd-stack.
 source $SCRIPT_DIR/dtd-stack
@@ -139,7 +139,9 @@ mkdir -p /opt/dtd
 unzip $SCRIPT_DIR/tracks.zip -d /var/www/html
 
 # Initialize sites
+/etc/init.d/mysql-server start
 source $SCRIPT_DIR/dtd-init
+/etc/init.d/mysql-server stop
 
 # Add Apache vhosts
 rm -f /etc/apache2/sites-enabled/*.conf
@@ -148,14 +150,17 @@ cp $SCRIPT_DIR/dtd-vhosts.conf /etc/apache2/sites-available
 ln -s /etc/apache2/sites-available/dtd-vhosts.conf /etc/apache2/sites-enabled/000-dtd-vhosts.conf
 
 # Install Atom
-
+apt-get install --assume-yes --force-yes software-properties-common
+add-apt-repository -y ppa:webupd8team/atom
+apt-get update
+apt-get install --assume-yes --force-yes atom
 # Install gate-one
 
 # Install virt-what
 apt-get install --assume-yes --force-yes virt-what apt-rdepends
 # Download but don't install guest additions for virtualbox and vmware.
-apt-get apt-get download $(apt-rdepends virtualbox-guest-x11 |grep -v "^ ")
-apt-get apt-get download $(apt-rdepends open-vm-tools-desktop |grep -v "^ ")
+apt-get download $(apt-rdepends virtualbox-guest-x11 |grep -v "^ ")
+apt-get download $(apt-rdepends open-vm-tools-desktop |grep -v "^ ")
 
 # Append hostfile
 thisip=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
