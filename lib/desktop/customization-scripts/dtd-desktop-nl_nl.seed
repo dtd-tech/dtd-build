@@ -24,14 +24,15 @@ unattended-upgrades unattended-upgrades/enable_auto_updates boolean false
 ####################################################################
 
 # Configure the sources.list
-d-i mirror/country string nl
-d-i mirror/http/hostname  string archive.ubuntu.com
+# d-i mirror/country string manual
+# d-i mirror/http/hostname  string archive.ubuntu.com
+d-i mirror/http/mirror select nl.archive.ubuntu.com
 d-i mirror/http/directory string /ubuntu/
 d-i apt-setup/use_mirror boolean true
 d-i apt-setup/mirror/error select Change mirror
-d-i apt-setup/multiverse boolean false
-d-i apt-setup/restricted boolean false
-d-i apt-setup/universe boolean false
+d-i apt-setup/multiverse boolean true
+d-i apt-setup/restricted boolean true
+d-i apt-setup/universe boolean true
 d-i apt-setup/partner boolean false
 
 
@@ -68,7 +69,8 @@ ubiquity partman/confirm_nooverwrite boolean true
 ####################################################################
 
 ### Keyboard selection ###
-# d-i keyboard-configuration/layoutcode string us
+d-i console-setup/ask_detect boolean false
+d-i keyboard-configuration/layoutcode string us
 # d-i keyboard-configuration/variantcode string
 
 ### Locale ###
