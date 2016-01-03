@@ -11,10 +11,9 @@ composer:
   url: "https://getcomposer.org/composer.phar"
   file: "composer.phar"
 drush:
-  method: "git"
-  url: "https://github.com/drush-ops/drush.git"
-  branch: "master"
-  dir: "drush"
+  method: "http"
+  url: "https://github.com/drush-ops/drush/releases/download/8.0.1/drush.phar"
+  file: "drush.phar"
 
 win_sources: "win_controller win_mysql win_apache win_php win_phpmyadmin"
 win_controller:

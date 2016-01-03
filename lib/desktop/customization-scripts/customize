@@ -122,17 +122,13 @@ fi
 # Installing dtd-stack.
 source $SCRIPT_DIR/dtd-stack
 
-# Install composer
-mkdir -p /opt/composer
-cp $SCRIPT_DIR/composer.gz /opt/composer
-gunzip /opt/composer/composer.gz
-chmod 755 /opt/composer/composer
-ln -s /opt/composer/composer /usr/local/bin/composer
-
-# Install drush
-tar xzf $SCRIPT_DIR/drush.tgz -C /opt
+# Install composer and drush
+mkdir -p /opt/drush
+cp $SCRIPT_DIR/composer /opt/drush
+cp $SCRIPT_DIR/drush /opt/drush
+chmod 755 /opt/drush/*
+ln -s /opt/drush/composer /usr/local/bin/composer
 ln -s /opt/drush/drush /usr/local/bin/drush
-
 
 # Extract tracks
 mkdir -p /opt/dtd

@@ -13,8 +13,8 @@ dtd_build_desktop_remaster_prep() {
   # Copy the tracks package into the scripts dir so it's copied into the chroot.
   cp $dtd_build_dir/var/build/tracks/$dtd_cfg_event_short-tracks.zip $dtd_build_dir/tmp/desktop/customization-scripts/tracks.zip
   # Copy composer and drush
-  cp $dtd_build_dir/var/build/composer/composer.gz $dtd_build_dir/tmp/desktop/customization-scripts/
-  cp $dtd_build_dir/var/build/drush/drush.tgz $dtd_build_dir/tmp/desktop/customization-scripts/
+  cp $dtd_build_dir/var/build/composer/composer $dtd_build_dir/tmp/desktop/customization-scripts/
+  cp $dtd_build_dir/var/build/drush/drush $dtd_build_dir/tmp/desktop/customization-scripts/
   # Copy stack script.
   cp $dtd_build_dir/bin/dtd-stack $dtd_build_dir/tmp/desktop/customization-scripts/
 
