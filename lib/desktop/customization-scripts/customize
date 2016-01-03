@@ -122,9 +122,6 @@ fi
 # Installing dtd-stack.
 source $SCRIPT_DIR/dtd-stack
 
-# Install
-apt-get install --assume-yes --force-yes phpmyadmin
-
 # Install composer and drush
 mkdir -p /opt/drush
 cp $SCRIPT_DIR/composer /opt/drush
