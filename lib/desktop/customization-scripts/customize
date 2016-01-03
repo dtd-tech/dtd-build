@@ -164,6 +164,7 @@ apt-get install --assume-yes --force-yes virt-what virtualbox-guest-x11
 
 # Install Chromium
 apt-get install --assume-yes --force-yes chromium-browser
+cp $SCRIPT_DIR/*.desktop /home/dtd/Bureaublad/
 
 # Append hostfile
 thisip=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
