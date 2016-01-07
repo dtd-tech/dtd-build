@@ -38,13 +38,10 @@ dtd_build_win_extract() {
   # Add composer
   echo "Extracting Composer and Drush..."
   cd core
-  mkdir composer
-  cd composer
-  cp $dtd_build_dir/var/build/composer/composer.gz .
-  gunzip composer.gz
-  cd ..
-  # Add Drush
-  tar xzf $dtd_build_dir/var/build/drush/drush.tgz
+  mkdir drush
+  cd drush
+  cp $dtd_build_dir/var/build/composer/composer .
+  cp $dtd_build_dir/var/build/composer/drush .
   cd ..
   # Add all tracks
   echo "Extracting tracks..."

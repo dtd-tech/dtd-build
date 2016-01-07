@@ -67,7 +67,7 @@ apt-get --purge remove --assume-yes --force-yes \
 	bluez pidgin cups transmission-gtk gnome-sudoku gnome-mines orage audacious \
 	audacious-plugins guvcview mtpaint sylpheed pidgin-data libpurple0 \
 	libgoffice-0.10-10 gstreamer0.10-plugins-good update-notifier synaptic \
-	openprinting-ppds geoip-database libx264-142
+	openprinting-ppds geoip-database libx264-142 light-locker firefox*
 
 apt-get autoremove --assume-yes
 apt-get clean
@@ -94,7 +94,7 @@ if [ -n "$LIVECD_LANGS" ]; then
 			done
 		fi
                 # Add firefox locales
-                add=`echo "firefox-locale-"$l"`
+                # add=`echo "firefox-locale-"$l"`
                 PACKAGES_TO_INSTALL="$PACKAGES_TO_INSTALL $add"
 
 		if [ -z "$LANGPACKS_CONCATENATED" ]; then
@@ -117,29 +117,29 @@ if [ -n "$LIVECD_LANGS" ]; then
 fi
 
 # Installing updates.
-apt-get upgrade --assume-yes --force-yes
+# apt-get upgrade --assume-yes --force-yes
 
 # Installing dtd-stack.
 source $SCRIPT_DIR/dtd-stack
 
-# Install composer
-mkdir -p /opt/composer
-cp $SCRIPT_DIR/composer.gz /opt/composer
-gunzip /opt/composer/composer.gz
-chmod 755 /opt/composer/composer
-ln -s /opt/composer/composer /usr/local/bin/composer
-
-# Install drush
-tar xzf $SCRIPT_DIR/drush.tgz -C /opt
+# Install composer and drush
+mkdir -p /opt/drush
+cp $SCRIPT_DIR/composer /opt/drush
+cp $SCRIPT_DIR/drush /opt/drush
+chmod 755 /opt/drush/*
+ln -s /opt/drush/composer /usr/local/bin/composer
 ln -s /opt/drush/drush /usr/local/bin/drush
-
 
 # Extract tracks
 mkdir -p /opt/dtd
 unzip $SCRIPT_DIR/tracks.zip -d /var/www/html
 
 # Initialize sites
+# /etc/init.d/mysql start
+# cat $SCRIPT_DIR/dtd-init
 source $SCRIPT_DIR/dtd-init
+# read -p "hit the any key"
+# /etc/init.d/mysql stop
 
 # Add Apache vhosts
 rm -f /etc/apache2/sites-enabled/*.conf
@@ -148,18 +148,26 @@ cp $SCRIPT_DIR/dtd-vhosts.conf /etc/apache2/sites-available
 ln -s /etc/apache2/sites-available/dtd-vhosts.conf /etc/apache2/sites-enabled/000-dtd-vhosts.conf
 
 # Install Atom
-
-# Install gate-one
+apt-get install --assume-yes --force-yes software-properties-common
+add-apt-repository -y ppa:webupd8team/atom
+apt-get update
+apt-get install --assume-yes --force-yes atom
 
 # Install virt-what
-apt-get install --assume-yes --force-yes virt-what apt-rdepends
+apt-get install --assume-yes --force-yes virt-what virtualbox-guest-x11 virtualbox-guest-dkms dkms
 # Download but don't install guest additions for virtualbox and vmware.
-apt-get apt-get download $(apt-rdepends virtualbox-guest-x11 |grep -v "^ ")
-apt-get apt-get download $(apt-rdepends open-vm-tools-desktop |grep -v "^ ")
+# apt-get download $(apt-rdepends virtualbox-guest-x11 |grep -v "^ ")
+# apt-get download $(apt-rdepends open-vm-tools-desktop |grep -v "^ ")
+
+# Install Chromium
+apt-get install --assume-yes --force-yes chromium-browser
+cp $SCRIPT_DIR/*.desktop /home/dtd/Bureaublad/
 
 # Append hostfile
 thisip=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
 cat $SCRIPT_DIR/hosts | sed "s/_IP_/${thisip}/g" | tr -d '\n' >> /etc/hosts
 
 # apt-get dist-upgrade --assume-yes
+/etc/init.d/mysql stop
+/etc/init.d/apache2 stop
 echo "Done"

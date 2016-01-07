@@ -4,17 +4,8 @@
 
 dtd_build_composer() {
   cp -v $dtd_build_dir/var/sources/composer/composer.phar $dtd_build_dir/var/build/composer/composer
-  gzip -v $dtd_build_dir/var/build/composer/composer
 }
- 
+
 dtd_build_drush() {
-  mkdir -p $dtd_build_dir/tmp/drush
-  pushd $dtd_build_dir/tmp/drush
-  cp -Rv $dtd_build_dir/var/sources/drush/drush .
-  rm -Rf drush/.git
-  cd drush
-  composer install
-  cd ..
-  tar czvf $dtd_build_dir/var/build/drush/drush.tgz drush
-  popd
+  cp -v $dtd_build_dir/var/sources/drush/drush.phar $dtd_build_dir/var/build/drush/drush
 }

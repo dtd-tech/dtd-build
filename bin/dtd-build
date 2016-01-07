@@ -2,7 +2,7 @@
 
 # dtd-build
 # usage dtd-build [clean|source|build|update] [composer|drush|tracks|desktop|vm|vagrant|tools|win|usb|all]
-dtd_build_dir="/opt/dtd-build"
+dtd_build_dir="/home/dtd/dtd-build"
 
 # Load common routines
 source $dtd_build_dir/lib/common/dtd-common
@@ -31,8 +31,8 @@ case "$1" in
       tracks )
         if [ "$3" ]; then
           dtd_source_get $3 tracks
-#        elfi
-#          dtd_tracks_get_all
+        else
+          dtd_tracks_get_all
         fi
         ;;
       vm | vagrant | usb )

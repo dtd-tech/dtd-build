@@ -1,9 +1,23 @@
 win:
   vbox:
     method: "http"
-    url: "http://download.virtualbox.org/virtualbox/4.3.26/VirtualBox-4.3.26-98988-Win.exe"
-    file: "VirtualBox-4.3.26-98988-Win.exe"
+    url: "http://download.virtualbox.org/virtualbox/5.0.12/VirtualBox-5.0.12-104815-Win.exe"
+    file: "VirtualBox-5.0.12-104815-Win.exe"
     size:
-  
+  atom:
+    method: "http"
+    url: "https://github.com/atom/atom/releases/download/v1.3.2/AtomSetup.exe"
+    file: "AtomSetup.exe"
+  filezilla: "http"
+    url: "http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.14.1/FileZilla_3.14.1_win64-setup.exe?r=&ts=1451836575&use_mirror=netixx"
+    file: "FileZilla_3.14.1_win64-setup.exe"
 mac:
   vbox:
+    method: "http"
+    url: "http://download.virtualbox.org/virtualbox/5.0.12/VirtualBox-5.0.12-104815-OSX.dmg"
+    file: "VirtualBox-5.0.12-104815-OSX.dmg"
+    size:
+  atom:
+    method: "http"
+    url: "https://github.com/atom/atom/releases/download/v1.3.2/atom-mac.zip"
+    file: "https://github.com/atom/atom/releases/download/v1.3.2/atom-mac.zip"
