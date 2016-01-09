@@ -28,11 +28,11 @@ case "$1" in
       win )
         dtd_source_get_win
         ;;
-      tracks )
+      workshops )
         if [ "$3" ]; then
-          dtd_source_get $3 tracks
+          dtd_source_workshops_get $3
         else
-          dtd_tracks_get_all
+          dtd_source_workshops_get_all
         fi
         ;;
       vm | vagrant | usb )
@@ -54,9 +54,9 @@ case "$1" in
         source $dtd_build_dir/lib/drush/dtd-drush
         dtd_build_drush
         ;;
-      tracks )
-        source $dtd_build_dir/lib/tracks/dtd-tracks
-        dtd_build_tracks
+      workshops )
+        source $dtd_build_dir/lib/workshops/dtd-workshops
+        dtd_build_workshops
         ;;
       desktop )
         source $dtd_build_dir/lib/desktop/dtd-desktop
@@ -82,7 +82,7 @@ case "$1" in
 
     dtd_build_drush
 
-    dtd_build_tracks
+    dtd_build_workshops
 
     dtd_build_win
 

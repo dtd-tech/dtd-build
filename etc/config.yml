@@ -24,10 +24,10 @@ local:
     time: UTC
 
 event:
-  short: "dtd2015"
-  full: "Drupal Training Day 2015"
+  short: "dtd2016"
+  full: "Drupal Training Day 2016"
   url: "http://drupaltrainingday.nl/"
-  date: "11/11/2015"
+  date: "19/02/2016"
 
 release:
   dev:

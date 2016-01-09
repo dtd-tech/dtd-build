@@ -35,6 +35,11 @@ dtd_load_sources() {
   eval $(parse_yaml $dtd_build_dir/etc/sources.yml "dtd_src_")
 }
 
+dtd_load_workshops() {
+  # Load the sources definitions
+  eval $(parse_yaml $dtd_build_dir/etc/workshops.yml "dtd_workshop_")
+}
+
 dtd_load_targets() {
   # Load the target definitions
   eval $(parse_yaml $dtd_build_dir/etc/targets.yml "dtd_target_")

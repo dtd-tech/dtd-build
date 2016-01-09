@@ -108,6 +108,7 @@ dtd_source_get_git() {
   eval dtd_tag=\$dtd_src_${1}_tag
   if [ $2 ];
     then
+      mkdir -p $dtd_build_dir/var/sources/$2
       dtd_dest=$dtd_build_dir/var/sources/$2
     else
       dtd_dest=$dtd_build_dir/var/sources/$1
@@ -154,6 +155,10 @@ dtd_source_get_win() {
 }
 
 
-dtd_tracks_get() {
- dtd_source_get $1 tracks/$1
+dtd_source_workshops_get() {
+  dtd_source_get $1 workshops/$1
+}
+
+dtd_source_workshops_get_all() {
+  for source in "${workshops[@]}"; do dtd_source_get $source workshops/$source; done
 }

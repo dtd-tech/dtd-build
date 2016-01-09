@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Routines to create a generic dtd-tracks.zip for use in multiple targets.
+
+dtd_build_workshops() {
+  dtd_load_workshops
+  # Create or clean up tmp tracks directory
+  if [ -d "$dtd_build_dir/tmp/workshops" ]; then
+    rm -R $dtd_build_dir/tmp/workshops/*
+  else
+    mkdir $dtd_build_dir/tmp/workshops
+  fi
+  workshops=( $dtd_workshop_workshops )
+  for workshop in "${workshops[@]}"; do
+    # Check source of workshop
+    eval workshop_src=\$dtd_workshop_${workshop}_source
+    eval workshop_src_dir=\$dtd_src_${workshop_src}_dir
+    eval workshop_dir=\$dtd_workshop_${workshop}_dir
+    workshop_path=$dtd_build_dir/var/sources/workshops/$workshop_src/$workshop_src_dir/$workshop_dir
+
+
+    mkdir -p $dtd_build_dir/tmp/workshops/$workshop_dir
+    # copy over all files but .git/
+    rsync -az --exclude '.git' $workshop_path/ $dtd_build_dir/tmp/workshops/$workshop
+  done
+  # Create dtd-tracks.zip
+  rm $dtd_build_dir/var/build/workshops/$dtd_cfg_event_short-workshops.zip
+  pushd $dtd_build_dir/tmp
+  zip -9 -r $dtd_build_dir/var/build/workshops/$dtd_cfg_event_short-workshops.zip workshops
+  popd
+}

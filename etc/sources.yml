@@ -43,14 +43,14 @@ win_phpmyadmin:
   md5: "fc442ac3b63e5567a5c84622ec7772a7"
 
 ## Workshop material sources
-material:
-  main:
-    method: "git"
-    url: "https://github.com/dtd-tech/dtd-main.git"
-    dir: "dtd-main"
-    branch: "master"
-  wizzlern:
-    method: "git"
-    url: "https://github.com/dtd-tech/drupaltrainingday.git"
-    dir: "drupaltrainingday"
-    branch: "dtd2016"
+workshops: "main wizzlern"
+main:
+  method: "git"
+  url: "https://github.com/dtd-tech/dtd-main.git"
+  dir: "dtd-main"
+  branch: "master"
+wizzlern:
+  method: "git"
+  url: "https://github.com/dtd-tech/drupaltrainingday.git"
+  dir: "drupaltrainingday"
+  branch: "dtd2016"

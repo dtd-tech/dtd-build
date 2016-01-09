@@ -1,29 +1,57 @@
-workshops: "dtd2016 site-building development theming"
-workshop:
-  dtd2016:
-    i: 0
-    name: "Drupal Training Day 2016"
-    description: "Standaard landings pagina met eerste aanwijzingen en tips voor een snelle start met deze Drupal trainings omgeving."
-    source_material: "dtd-main"
-    host: "dtd2016.dtd"
-    sql: "dtd2016.sql"
-    drush_alias: "dtd2016.alias.drushrc.php"
-    authors:
-      dtd-tech:
-        name: "Drupal Training Day 2015 Team"
-        url: "http://www.drupaltrainingday.nl/"
-        people: "Paul Krischer"
-  site-buidling:
-    i: 1
-    name: "Site Building"
-    description: "Leer hoe je een Drupal site kunt bouwen door het combineren en configureren van bestaande modules."
-    source_material: "wizzlern"
-    source_dir: "site-building"
-    host: "site-building.dtd"
-    sql: sitebuilding.sql
-    drush_alias: "site-building.alias.drushrc.php"
-    authors:
-      wizzlern:
-        name: "Wizzlern"
-        url: "http://wizzlern.nl"
-        people: "Erik Stielstra"
+workshops: "dtd2016 sitebuilding development theming"
+dtd2016:
+  i: 0
+  name: "Drupal Training Day 2016"
+  description: "Standaard landings pagina met eerste aanwijzingen en tips voor een snelle start met deze Drupal trainings omgeving."
+  source: "main"
+  dir: ""
+  host: "dtd2016.dtd"
+  sql: "dtd2016.sql"
+  drush_alias: "dtd2016.alias.drushrc.php"
+  authors:
+    dtd-tech:
+      name: "Drupal Training Day 2015 Team"
+      url: "http://www.drupaltrainingday.nl/"
+      people: "Paul Krischer"
+sitebuilding:
+  i: 1
+  name: "Site Building"
+  description: "Leer hoe je een Drupal site kunt bouwen door het combineren en configureren van bestaande modules."
+  source: "wizzlern"
+  dir: "sitebuilding"
+  host: "sitebuilding.dtd"
+  sql: "sitebuilding.sql"
+  drush_alias: "sitebuilding.alias.drushrc.php"
+  authors:
+    wizzlern:
+      name: "Wizzlern"
+      url: "http://wizzlern.nl/"
+      people: "Erik Stielstra"
+development:
+  i: 2
+  Name: "Development"
+  description: "In deze workshop leer je een eigen Drupal 8 module schrijven met behulp van de Drupal-API."
+  source: "wizzlern"
+  dir: "development"
+  host: "development.dtd"
+  sql: "development.sql"
+  drush_alias: "development.alias.drushrc.php"
+  authors:
+    wizzlern:
+      name: "Wizzlern"
+      url: "http://wizzlern.nl/"
+      people: "Erik Stielstra"
+theming:
+  i: 3
+  name: "Theming"
+  description: "In deze workshop leer je hoe een Drupal “theme” te maken volgens de nieuwste web technieken."
+  source: "wizzlern"
+  dir: "theming"
+  host: "theming.dtd"
+  sql: "theming.sql"
+  drush_alias: "theming.alias.drushrc.php"
+  authors:
+    wizzlern:
+      name: "Wizzlern"
+      url: "http://wizzlern.nl/"
+      people: "Erik Stielstra"
