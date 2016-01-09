@@ -11,6 +11,7 @@ source $dtd_build_dir/lib/common/dtd-common
 dtd_load_config;
 dtd_load_local;
 dtd_load_sources;
+dtd_load_workshops;
 dtd_load_targets;
 
 case "$1" in

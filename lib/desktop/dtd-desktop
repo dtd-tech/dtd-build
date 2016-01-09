@@ -11,7 +11,7 @@ dtd_build_desktop_remaster_prep() {
   # Copy the customization-scripts template
   cp -R $dtd_build_dir/lib/desktop/customization-scripts $dtd_build_dir/tmp/desktop/
   # Copy the tracks package into the scripts dir so it's copied into the chroot.
-  cp $dtd_build_dir/var/build/tracks/$dtd_cfg_event_short-tracks.zip $dtd_build_dir/tmp/desktop/customization-scripts/tracks.zip
+  cp $dtd_build_dir/var/build/workshops/$dtd_cfg_event_short-workshops.zip $dtd_build_dir/tmp/desktop/customization-scripts/workshops.zip
   # Copy composer and drush
   cp $dtd_build_dir/var/build/composer/composer $dtd_build_dir/tmp/desktop/customization-scripts/
   cp $dtd_build_dir/var/build/drush/drush $dtd_build_dir/tmp/desktop/customization-scripts/
@@ -23,7 +23,7 @@ dtd_build_desktop_remaster_prep() {
 dtd_build_desktop() {
   # Build the iso.
   dtd_build_desktop_remaster_prep
-  dtd_build_desktop_tracks
+  dtd_build_desktop_workshops
   uck-remaster \
     $dtd_build_dir/var/sources/desktop/$dtd_src_desktop_file \
     $dtd_build_dir/tmp/desktop/customization-scripts \
@@ -31,29 +31,31 @@ dtd_build_desktop() {
   mv $dtd_build_dir/tmp/desktop/remaster/remaster-new-files/livecd.iso $dtd_build_dir/var/build/desktop/$dtd_target_desktop_iso_file
 }
 
-dtd_build_desktop_tracks() {
+dtd_build_desktop_workshops() {
   default_vhost=1
   touch $dtd_build_dir/tmp/desktop/customization-scripts/dtd-init
-  echo "_IP_  " > $dtd_build_dir/tmp/desktop/customization-scripts/hosts
-  for track in "${dtd_src_tracks[@]}"; do
+  # echo "_IP_  " > $dtd_build_dir/tmp/desktop/customization-scripts/hosts
+  # for workshop in "${dtd_workshop_workshops[@]}"; do
+  workshops=( $dtd_workshop_workshops )
+  for workshop in "${workshops[@]}"; do
     # Determine hostname.
-    eval dtd_host=\$dtd_src_${track}_host
+    eval dtd_host=\$dtd_workshop_${workshop}_host
     # Use the default vhost template for the first defined track.
     if [ $default_vhost = 1 ]; then
-      cat $dtd_build_dir/lib/desktop/default_vhost.conf | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" > $dtd_build_dir/tmp/desktop/customization-scripts/dtd-vhosts.conf
+      cat $dtd_build_dir/lib/desktop/default_vhost.conf | sed "s/_DTD_WORKSHOP_/${workshop}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" > $dtd_build_dir/tmp/desktop/customization-scripts/dtd-vhosts.conf
       default_vhost=0
     else
-      cat $dtd_build_dir/lib/desktop/vhost.conf | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/dtd-vhosts.conf
+      cat $dtd_build_dir/lib/desktop/vhost.conf | sed "s/_DTD_WORKSHOP_/${workshop}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/dtd-vhosts.conf
     fi
 
     # Add hostname to hostfile template
-    echo " $dtd_host" >> $dtd_build_dir/tmp/desktop/customization-scripts/hosts
+    # echo " $dtd_host" >> $dtd_build_dir/tmp/desktop/customization-scripts/hosts
 
     # Now add an db section for each track
-    eval dtd_dump=\$dtd_src_${track}_sql
+    eval dtd_dump=\$dtd_workshop_${workshop}_sql
     cat $dtd_build_dir/lib/desktop/dtd-init | sed "s/_DTD_DB_DUMP_/${dtd_dump}/g" | sed "s/_DTD_USER_/${dtd_cfg_auth_user}/g" | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" | sed "s/_DTD_DB_/${track}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/dtd-init
     # And add a section to the site alias drushrc file.
-    eval dtd_host=\$dtd_src_${track}_host
-    cat $dtd_build_dir/lib/desktop/site-alias.php | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/aliases.drushrc.php
+    eval dtd_host=\$dtd_workshop_${workshop}_host
+    cat $dtd_build_dir/lib/desktop/site-alias.php | sed "s/_DTD_WORKSHOP_/${workshop}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/aliases.drushrc.php
   done
 }

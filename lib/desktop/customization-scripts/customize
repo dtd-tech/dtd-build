@@ -67,7 +67,7 @@ apt-get --purge remove --assume-yes --force-yes \
 	bluez pidgin cups transmission-gtk gnome-sudoku gnome-mines orage audacious \
 	audacious-plugins guvcview mtpaint sylpheed pidgin-data libpurple0 \
 	libgoffice-0.10-10 gstreamer0.10-plugins-good update-notifier synaptic \
-	openprinting-ppds geoip-database libx264-142 light-locker firefox*
+	openprinting-ppds geoip-database libx264-142 light-locker firefox* modemmanager
 
 apt-get autoremove --assume-yes
 apt-get clean
@@ -131,8 +131,8 @@ ln -s /opt/drush/composer /usr/local/bin/composer
 ln -s /opt/drush/drush /usr/local/bin/drush
 
 # Extract tracks
-mkdir -p /opt/dtd
-unzip $SCRIPT_DIR/tracks.zip -d /var/www/html
+# mkdir -p /opt/dtd
+unzip $SCRIPT_DIR/workshops.zip -d /var/www/html
 
 # Initialize sites
 # /etc/init.d/mysql start
@@ -161,11 +161,11 @@ apt-get install --assume-yes --force-yes virt-what virtualbox-guest-x11 virtualb
 
 # Install Chromium
 apt-get install --assume-yes --force-yes chromium-browser
-cp $SCRIPT_DIR/*.desktop /home/dtd/Bureaublad/
+cp $SCRIPT_DIR/*.desktop /home/lubuntu/Desktop/
 
 # Append hostfile
-thisip=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
-cat $SCRIPT_DIR/hosts | sed "s/_IP_/${thisip}/g" | tr -d '\n' >> /etc/hosts
+# thisip=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
+# cat $SCRIPT_DIR/hosts | sed "s/_IP_/${thisip}/g" | tr -d '\n' >> /etc/hosts
 
 # apt-get dist-upgrade --assume-yes
 /etc/init.d/mysql stop

@@ -1,12 +1,12 @@
 [Desktop Entry]
 Version=1.0
 Name=DTD Browser
-Name[nl]=DTD webbrowser
+Name[nl]=DTD Web Browser
 GenericName=Web Browser
 GenericName[nl]=Webbrowser
 Comment=Learn Drupal on the Drupal Training Day
 Comment[nl]=Leer Drupal op de Drupal Training Day
-Exec=chromium-browser %U
+Exec=chromium-browser --proxy-pac-url=http://localhost/dtd.pac.php http://dtd2016.dtd/
 Terminal=false
 X-MultipleArgs=false
 Type=Application

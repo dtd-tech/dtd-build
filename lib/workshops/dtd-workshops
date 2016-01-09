@@ -22,6 +22,10 @@ dtd_build_workshops() {
     mkdir -p $dtd_build_dir/tmp/workshops/$workshop_dir
     # copy over all files but .git/
     rsync -az --exclude '.git' $workshop_path/ $dtd_build_dir/tmp/workshops/$workshop
+    # Create log directory
+    mkdir -p $dtd_build_dir/tmp/workshops/$workshop_dir/logs
+    touch $dtd_build_dir/tmp/workshops/$workshop_dir/logs/error.log
+    touch $dtd_build_dir/tmp/workshops/$workshop_dir/logs/access.log
   done
   # Create dtd-tracks.zip
   rm $dtd_build_dir/var/build/workshops/$dtd_cfg_event_short-workshops.zip
