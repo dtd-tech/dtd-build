@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Build a virtualmachine.
+
+dtd_build_vm() {
+
+}
+
+dtd_build_vm_chk_net() {
+  # Check if the host only network exists.
+
+  # If not create it.
+
+}
+
+dtd_build_vm_virtualbox() {
+
+}
+
+dtd_build_vm_export() {
+
+}

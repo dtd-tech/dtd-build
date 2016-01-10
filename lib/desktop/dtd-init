@@ -12,4 +12,4 @@ echo "Import database _DTD_DB_"
 mysql -u root --password=_DTD_PASSWORD_ _DTD_DB_ < /var/www/html/workshops/_DTD_DB_/build/_DTD_DB_DUMP_
 
 # check permissions.
-chmod -R 777 /var/www/html/workshops/_DTD_DB_/docroot/site/default/files
+chmod -R 777 /var/www/html/workshops/_DTD_DB_/docroot/sites/default/files

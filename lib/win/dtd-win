@@ -41,8 +41,8 @@ dtd_build_win_extract() {
   mkdir drush
   cd drush
   cp $dtd_build_dir/var/build/composer/composer .
-  cp $dtd_build_dir/var/build/composer/drush .
-  cd ..
+  cp $dtd_build_dir/var/build/drush/drush .
+  cd ../..
   # Add all workshops
   echo "Extracting workshops..."
   unzip -qq $dtd_build_dir/var/build/workshops/$dtd_cfg_event_short-workshops.zip
@@ -66,8 +66,8 @@ dtd_build_win_workshops() {
   cd $dtd_build_dir/tmp
   echo "Include conf/dtd-vhosts.conf" >> $dtd_cfg_event_short/core/apache2/conf/httpd.conf
 
-  for workshop in "${dtd_workshop_workshops[@]}"
-  do
+  workshops=( $dtd_workshop_workshops )
+  for workshop in "${workshops[@]}"; do
     # Then modify and add a vhost for each track.
     eval dtd_host=\$dtd_workshop_${workshop}_host
     # Use the default vhost template for the first defined track.
@@ -91,13 +91,14 @@ dtd_build_win_bat() {
   cat $dtd_build_dir/lib/win/bat/dtd-start.bat | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" > $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
   mkdir $dtd_build_dir/tmp/$dtd_cfg_event_short/core/drush/aliases
   touch $dtd_build_dir/tmp/$dtd_cfg_event_short/core/drush/aliases/aliases.drushrc.php
-  for track in "${dtd_src_tracks[@]}"; do
+  workshops=( $dtd_workshop_workshops )
+  for workshop in "${workshops[@]}"; do
     # Now add an db section for each track
-    eval dtd_dump=\$dtd_src_${track}_sql
-    cat $dtd_build_dir/lib/win/bat/dtd-init.bat | sed "s/_DTD_DB_DUMP_/${dtd_dump}/g" | sed "s/_DTD_USER_/${dtd_cfg_auth_user}/g" | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" | sed "s/_DTD_DB_/${track}/g" >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
+    eval dtd_dump=\$dtd_src_${workshop}_sql
+    cat $dtd_build_dir/lib/win/bat/dtd-init.bat | sed "s/_DTD_DB_DUMP_/${dtd_dump}/g" | sed "s/_DTD_USER_/${dtd_cfg_auth_user}/g" | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" | sed "s/_DTD_DB_/${workshop}/g" >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
     # And add a section to the site alias drushrc file.
-    eval dtd_host=\$dtd_src_${track}_host
-    cat $dtd_build_dir/lib/win/site-alias.php | sed "s/_DTD_TRACK_/${track}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_cfg_event_short/core/drush/aliases/aliases.drushrc.php
+    eval dtd_host=\$dtd_src_${workshop}_host
+    cat $dtd_build_dir/lib/win/site-alias.php | sed "s/_DTD_WORKSHOP_/${workshop}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_cfg_event_short/core/drush/aliases/aliases.drushrc.php
   done
   cat $dtd_build_dir/lib/win/bat/dtd-init-done.bat >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
 
