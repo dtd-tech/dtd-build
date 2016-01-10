@@ -28,7 +28,7 @@ dtd_build_desktop() {
     $dtd_build_dir/var/sources/desktop/$dtd_src_desktop_file \
     $dtd_build_dir/tmp/desktop/customization-scripts \
     $dtd_build_dir/tmp/desktop/remaster
-  mv $dtd_build_dir/tmp/desktop/remaster/remaster-new-files/livecd.iso $dtd_build_dir/var/build/desktop/$dtd_target_desktop_iso_file
+  mv $dtd_build_dir/tmp/desktop/remaster/remaster-new-files/livecd.iso $dtd_build_dir/var/build/desktop/$dtd_cfg_event_short-desktop.iso
 }
 
 dtd_build_desktop_workshops() {
