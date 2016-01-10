@@ -53,7 +53,7 @@ dtd_build_desktop_workshops() {
 
     # Now add an db section for each track
     eval dtd_dump=\$dtd_workshop_${workshop}_sql
-    cat $dtd_build_dir/lib/desktop/dtd-init | sed "s/_DTD_DB_DUMP_/${dtd_dump}/g" | sed "s/_DTD_USER_/${dtd_cfg_auth_user}/g" | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" | sed "s/_DTD_DB_/${track}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/dtd-init
+    cat $dtd_build_dir/lib/desktop/dtd-init | sed "s/_DTD_DB_DUMP_/${dtd_dump}/g" | sed "s/_DTD_USER_/${dtd_cfg_auth_user}/g" | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" | sed "s/_DTD_DB_/${workshop}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/dtd-init
     # And add a section to the site alias drushrc file.
     eval dtd_host=\$dtd_workshop_${workshop}_host
     cat $dtd_build_dir/lib/desktop/site-alias.php | sed "s/_DTD_WORKSHOP_/${workshop}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_build_dir/tmp/desktop/customization-scripts/aliases.drushrc.php

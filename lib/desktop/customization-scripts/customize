@@ -67,7 +67,7 @@ apt-get --purge remove --assume-yes --force-yes \
 	bluez pidgin cups transmission-gtk gnome-sudoku gnome-mines orage audacious \
 	audacious-plugins guvcview mtpaint sylpheed pidgin-data libpurple0 \
 	libgoffice-0.10-10 gstreamer0.10-plugins-good update-notifier synaptic \
-	openprinting-ppds geoip-database libx264-142 light-locker firefox* modemmanager
+	openprinting-ppds geoip-database libx264-142 light-locker firefox*
 
 apt-get autoremove --assume-yes
 apt-get clean
@@ -161,7 +161,8 @@ apt-get install --assume-yes --force-yes virt-what virtualbox-guest-x11 virtualb
 
 # Install Chromium
 apt-get install --assume-yes --force-yes chromium-browser
-cp $SCRIPT_DIR/*.desktop /home/lubuntu/Desktop/
+mkdir -p /etc/skel/Desktop
+cp $SCRIPT_DIR/*.desktop /etc/skel/Desktop
 
 # Append hostfile
 # thisip=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
