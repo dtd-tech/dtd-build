@@ -2,7 +2,7 @@
 
 REM Windows Bat File to start DTD live environment for Windows.
 
-REM First check if this is a resh build.
+REM First check if this is a fresh build.
 
 IF EXIST tmp\fresh_install.txt (
   ECHO This is a fresh install.

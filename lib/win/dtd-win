@@ -94,14 +94,12 @@ dtd_build_win_bat() {
   workshops=( $dtd_workshop_workshops )
   for workshop in "${workshops[@]}"; do
     # Now add an db section for each track
-    eval dtd_dump=\$dtd_src_${workshop}_sql
-    cat $dtd_build_dir/lib/win/bat/dtd-init.bat | sed "s/_DTD_DB_DUMP_/${dtd_dump}/g" | sed "s/_DTD_USER_/${dtd_cfg_auth_user}/g" | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" | sed "s/_DTD_DB_/${workshop}/g" >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
+    cat $dtd_build_dir/lib/win/bat/dtd-init.bat | sed "s/_DTD_USER_/${dtd_cfg_auth_user}/g" | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" | sed "s/_DTD_DB_/${workshop}/g" >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
     # And add a section to the site alias drushrc file.
     eval dtd_host=\$dtd_src_${workshop}_host
     cat $dtd_build_dir/lib/win/site-alias.php | sed "s/_DTD_WORKSHOP_/${workshop}/g" | sed "s/_DTD_HOST_/${dtd_host}/g" >> $dtd_cfg_event_short/core/drush/aliases/aliases.drushrc.php
   done
   cat $dtd_build_dir/lib/win/bat/dtd-init-done.bat >> $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
-
 }
 
 dtd_build_win_configure() {
@@ -114,7 +112,6 @@ dtd_build_win_configure() {
   cp $dtd_build_dir/lib/media/favicon.ico $dtd_build_dir/tmp/$dtd_cfg_event_short/home/us_config/
   # Add a file to check if the db import hasn't happened.
   touch  $dtd_build_dir/tmp/$dtd_cfg_event_short/tmp/fresh_install.txt
-
 }
 
 dtd_build_win_cleanup() {
