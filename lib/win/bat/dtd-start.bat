@@ -30,3 +30,5 @@ ECHO ^<?php > core\drush\aliases\aliases.drushrc.php
 ECHO $dtd_root='%CD%'; >> core\drush\aliases\aliases.drushrc.php
 TYPE core\drush\aliases\aliases.tmp >> core\drush\aliases\aliases.drushrc.php
 DEL core\drush\aliases\aliases.tmp
+
+set "dtddir=%cd%"
