@@ -4,7 +4,7 @@
 
 # Environment variables
 DTD_VM_NAME=dtd2016
-DTD_VM_BASE=/Users/paul.krischer
+DTD_VM_BASE=$HOME
 DTD_VM_DIR=$DTD_VM_BASE/$DTD_VM_NAME
 DTD_VM_ISO=dtd2016-desktop.iso
 
@@ -61,8 +61,10 @@ dtd_vm_install() {
   # Start the vm.
   vboxmanage startvm $DTD_VM_NAME
   sleep 5
-  vboxmanage controlvm $DTD_VM_NAME keyboardputscancode 50 d0
-  vboxmanage controlvm $DTD_VM_NAME keyboardputscancode 50 d0
+  # Down arrow.
+  # vboxmanage controlvm $DTD_VM_NAME keyboardputscancode 50 d0
+  # vboxmanage controlvm $DTD_VM_NAME keyboardputscancode 50 d0
+  # Hit the enter key.
   vboxmanage controlvm $DTD_VM_NAME keyboardputscancode 1c 9c
 }
 
