@@ -53,4 +53,4 @@ wizzlern:
   method: "git"
   url: "https://github.com/dtd-tech/drupaltrainingday.git"
   dir: "drupaltrainingday"
-  branch: "dtd2016"
+  branch: "dtd2016-beta1"

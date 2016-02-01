@@ -20,4 +20,4 @@ mac:
   atom:
     method: "http"
     url: "https://github.com/atom/atom/releases/download/v1.3.2/atom-mac.zip"
-    file: "https://github.com/atom/atom/releases/download/v1.3.2/atom-mac.zip"
+    file: "atom-mac.zip"

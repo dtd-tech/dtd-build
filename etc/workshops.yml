@@ -1,4 +1,4 @@
-workshops: "dtd2016 sitebuilding development theming"
+workshops: "dtd2016 sitebuilding development frontend"
 dtd2016:
   i: 0
   name: "Drupal Training Day 2016"
@@ -41,15 +41,15 @@ development:
       name: "Wizzlern"
       url: "http://wizzlern.nl/"
       people: "Erik Stielstra"
-theming:
+frontend:
   i: 3
-  name: "Theming"
+  name: "Front End"
   description: "In deze workshop leer je hoe een Drupal “theme” te maken volgens de nieuwste web technieken."
   source: "wizzlern"
-  dir: "theming"
-  host: "theming.dtd"
-  sql: "theming.sql"
-  drush_alias: "theming.alias.drushrc.php"
+  dir: "frontend"
+  host: "frontend.dtd"
+  sql: "frontend.sql"
+  drush_alias: "frontend.alias.drushrc.php"
   authors:
     wizzlern:
       name: "Wizzlern"
