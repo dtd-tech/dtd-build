@@ -35,6 +35,8 @@ dtd_build_win_extract() {
   7z -o. x -y $dtd_build_dir/var/sources/win/ZeroXI_php_*.exe > /dev/null
   # Etract phpmyadmin
   7z -o. x -y $dtd_build_dir/var/sources/win/ZeroXI_phpmyadmin_*.exe > /dev/null
+  # Copying over Portable CHromium
+  cp -R $dtd_build_dir/var/sources/win/ChromiumPortable .
   # Add composer
   echo "Extracting Composer and Drush..."
   cd core
@@ -86,6 +88,7 @@ dtd_build_win_bat() {
   # Firt copy the stop and drush files.
   cp $dtd_build_dir/lib/win/bat/dtd-stop.bat $dtd_cfg_event_short/$dtd_cfg_event_short-stop.bat
   cp $dtd_build_dir/lib/win/bat/dtd-drush.bat $dtd_cfg_event_short/$dtd_cfg_event_short-drush.bat
+  cp $dtd_build_dir/lib/win/bat/dtd-browser.bat $dtd_cfg_event_short/$dtd_cfg_event_short-browser.bat
   cp $dtd_build_dir/lib/win/bat/drush.cmd $dtd_cfg_event_short/core/drush/
   # Then transform the start file
   cat $dtd_build_dir/lib/win/bat/dtd-start.bat | sed "s/_DTD_PASSWORD_/${dtd_cfg_auth_password}/g" > $dtd_cfg_event_short/$dtd_cfg_event_short-start.bat
