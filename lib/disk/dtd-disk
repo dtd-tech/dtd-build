@@ -4,5 +4,15 @@
 # from http://askubuntu.com/questions/249113/how-can-i-save-settings-when-booting-an-iso-file-from-hdd
 # and https://help.ubuntu.com/community/Grub2/ISOBoot
 
+sudo sgdisk --zap-all /dev/sdb
+# eject, insert... seriously?
+sudo sgdisk --new=1:0:0 --typecode=1:ef00 /dev/sdb
+sudo mkfs.vfat -F32 -n DTD2016 /dev/sdb1
+
+
 sudo grub-install --force --removable --no-floppy --boot-directory=/media/dtd/0000-0001/boot --efi-directory=/media/dtd/0000-0001/EFI/BOOT /dev/sdb1
 sudo grub-install --force --removable --no-floppy --boot-directory=/media/dtd/0000-0001/boot /dev/sdb1
+
+
+dd if=/dev/zero of=casper-rw bs=1M count=256
+mkfs.ext3 -F casper-rw
