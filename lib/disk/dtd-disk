@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Routines to build the usb disk
+
+sudo grub-install --force --removable --no-floppy --boot-directory=/media/dtd/0000-0001/boot --efi-directory=/media/dtd/0000-0001/EFI/BOOT /dev/sdb1
+sudo grub-install --force --removable --no-floppy --boot-directory=/media/dtd/0000-0001/boot /dev/sdb1
