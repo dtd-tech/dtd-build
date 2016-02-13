@@ -6,4 +6,9 @@ REM Example: SET DTDPROXY=http://localhost:8080/dtd.pac.php
 
 SET DTDPROXY=http://localhost/dtd.pac.php
 
+REM Environment settings to avoid Googe API key warnings
+setx GOOGLE_API_KEY "no"
+setx GOOGLE_DEFAULT_CLIENT_ID "no"
+setx GOOGLE_DEFAULT_CLIENT_SECRET "no"  
+
 start ChromiumPortable\ChromiumPortable.exe /proxy-pac-url=%DTDPROXY% http://dtd2016.dtd/
