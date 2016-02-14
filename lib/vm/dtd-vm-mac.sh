@@ -52,7 +52,7 @@ dtd_vm_create () {
   vboxmanage storagectl $DTD_VM_NAME --name IDE --add ide
   # Copy over the iso file
   # cp ../iso/dtd2016-desktop.iso $dtd-vm-dir
-  cp ~/dtd/beta1/$DTD_VM_ISO $DTD_VM_DIR
+  cp ../$DTD_VM_ISO $DTD_VM_DIR
   # Attach the iso file as an optical disk
   vboxmanage storageattach $DTD_VM_NAME --storagectl IDE --medium $DTD_VM_DIR/$DTD_VM_ISO --port 0 --type dvddrive --device 1
 }

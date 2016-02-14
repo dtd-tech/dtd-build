@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=Atom
+Name=DTD Editor
 Comment=A hackable text editor for the 21st century
-Exec=/opt/atom/atom %F
+Exec=/opt/atom/atom /var/www/html/workshops
 Icon=atom
 Type=Application
 StartupNotify=true

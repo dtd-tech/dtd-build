@@ -41,6 +41,36 @@ win_phpmyadmin:
   url: "http://downloads.sourceforge.net/project/miniserver/Uniform%20Server%20ZeroXI/ZeroXImodules/ZeroXI_phpmyadmin_4_4_15.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fminiserver%2Ffiles%2FUniform%2520Server%2520ZeroXI%2FZeroXImodules%2F&ts=1443954284&use_mirror=netix"
   file: "ZeroXI_phpmyadmin_4_4_15.exe"
   md5: "fc442ac3b63e5567a5c84622ec7772a7"
+win_chromium:
+  method: "http"
+  url: "http://downloads.sourceforge.net/project/crportable/ChromiumPortable_50.0.2633.3.paf.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcrportable%2Ffiles%2F%3Fsource%3Dnavbar&ts=1454445167&use_mirror=netix"
+  file: "ChromiumPortable_50.0.2633.3.paf.exe"
+
+# Tools
+win_tools: "win_vbox win_atom win_filezilla"
+win_vbox:
+  method: "http"
+  url: "http://download.virtualbox.org/virtualbox/5.0.12/VirtualBox-5.0.12-104815-Win.exe"
+  file: "VirtualBox-5.0.12-104815-Win.exe"
+  size:
+win_atom:
+  method: "http"
+  url: "https://github.com/atom/atom/releases/download/v1.3.2/AtomSetup.exe"
+  file: "AtomSetup.exe"
+win_filezilla:
+  method: "http"
+  url: "http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.14.1/FileZilla_3.14.1_win64-setup.exe?r=&ts=1451836575&use_mirror=netixx"
+  file: "FileZilla_3.14.1_win64-setup.exe"
+
+mac_tools: "mac_vbox mac_atom"
+mac_vbox:
+  method: "http"
+  url: "http://download.virtualbox.org/virtualbox/5.0.12/VirtualBox-5.0.12-104815-OSX.dmg"
+  file: "VirtualBox-5.0.12-104815-OSX.dmg"
+mac_atom:
+  method: "http"
+  url: "https://github.com/atom/atom/releases/download/v1.3.2/atom-mac.zip"
+  file: "atom-mac.zip"
 
 ## Workshop material sources
 workshops: "main wizzlern"

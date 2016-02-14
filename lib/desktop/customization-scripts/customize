@@ -133,6 +133,7 @@ ln -s /opt/drush/drush /usr/local/bin/drush
 # Extract tracks
 # mkdir -p /opt/dtd
 unzip $SCRIPT_DIR/workshops.zip -d /var/www/html
+chmod -R 777 /var/www/html/workshops
 
 # Initialize sites
 # /etc/init.d/mysql start
@@ -154,7 +155,7 @@ apt-get update
 apt-get install --assume-yes --force-yes atom
 
 # Install virt-what
-apt-get install --assume-yes --force-yes virt-what virtualbox-guest-x11 virtualbox-guest-dkms dkms
+apt-get install --assume-yes --force-yes virtualbox-guest-x11 virtualbox-guest-dkms dkms
 # Download but don't install guest additions for virtualbox and vmware.
 # apt-get download $(apt-rdepends virtualbox-guest-x11 |grep -v "^ ")
 # apt-get download $(apt-rdepends open-vm-tools-desktop |grep -v "^ ")

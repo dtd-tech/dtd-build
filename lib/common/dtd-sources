@@ -154,6 +154,15 @@ dtd_source_get_win() {
   for source in "${win_sources[@]}"; do dtd_source_get $source win; done
 }
 
+dtd_source_tools_get_all() {
+  # Windows tools.
+  win_tools=( $dtd_src_win_tools )
+  for source in "${win_tools[@]}"; do dtd_source_get $source tools/win; done
+
+  # Mac tools
+  mac_tools=( $dtd_src_mac_tools )
+  for source in "${mac_tools[@]}"; do dtd_source_get $source tools/mac; done
+}
 
 dtd_source_workshops_get() {
   dtd_source_get $1 workshops/$1
