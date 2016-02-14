@@ -162,8 +162,13 @@ apt-get install --assume-yes --force-yes virtualbox-guest-x11 virtualbox-guest-d
 
 # Install Chromium
 apt-get install --assume-yes --force-yes chromium-browser
+
+# Desktop icons
 mkdir -p /etc/skel/Desktop
 cp $SCRIPT_DIR/*.desktop /etc/skel/Desktop
+# Remove the install icon from the live environment. 
+cp $SCRIPT_DIR/rc.local /etc/rc.local
+chmod 755 /etc/rc.local
 
 # Append hostfile
 # thisip=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')

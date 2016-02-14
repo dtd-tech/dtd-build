@@ -32,3 +32,5 @@ TYPE core\drush\aliases\aliases.tmp >> core\drush\aliases\aliases.drushrc.php
 DEL core\drush\aliases\aliases.tmp
 
 set "dtddir=%cd%"
+
+SET PATH=%PATH%;%dtddir%\core\mysql\bin

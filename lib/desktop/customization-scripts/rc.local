@@ -1,0 +1,8 @@
+#!/bin/sh -e
+# remove the installer icon.
+if [[ -f /home/lubuntu/Desktop/ubiquity.desktop ]]
+then
+  rm /home/lubuntu/Desktop/ubiquity.desktop
+fi
+
+exit 0

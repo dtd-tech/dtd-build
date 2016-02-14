@@ -11,5 +11,5 @@ core\mysql\bin\mysql.exe -u root --password=_DTD_PASSWORD_ -e "GRANT SELECT, INS
 ECHO Import database _DTD_DB_
 core\mysql\bin\mysql.exe -u root --password=_DTD_PASSWORD_ _DTD_DB_ < workshops\_DTD_DB_\build\_DTD_DB_.sql
 
-ECHO Adjusting filesystem configuration to Windows.
-REM core\php55\php.exe %dtddir%\core\drush\drush -r workshops\_DTD_DB_\docroot config-set system.file path.temporary %dtddir%\tmp -y
+ECHO Rebuilding cache
+core\php55\php.exe %dtddir%\core\drush\drush cr -r workshops\_DTD_DB_\docroot --uri=_DTD_DB_.dtd

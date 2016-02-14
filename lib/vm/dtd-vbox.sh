@@ -10,12 +10,25 @@ DTD_VM_ISO=dtd2016-desktop.iso
 
 dtd_vm_chks () {
   # Check if Virtualbox is installed.
-  Echo "All ok"
+  command -v vboxmanage >/dev/null 2>&1 || { echo "This script requires Virutalbox but it's not installed.  Aborting." >&2; exit 1; }
+
   # Check if the virtualmachine does not exist already.
+  vmexists=$(vboxmanage list vms | grep $DTD_VM_NAME)
+  if [[ $vmexists == *"dtd2016"* ]]
+  then
+    echo "The machine $DTD_VM_NAME already exists. Aborting."
+    exit
+  fi
 
-  # Check for disk space
-
-  # Check if we're being run from the usb stick.
+  # Check disk image
+  if [[ ! -f ../../$DTD_VM_ISO ]]
+  then
+    if [[ ! -f $DTD_VM_BASE/$DTD_VM_NAME/$DTD_VM_ISO ]]
+    then
+      echo "Missing the file $DTD_VM_ISO. You can copy it to $DTD_VM_BASE/$DTD_VM_NAME and rerun this script."
+      exit
+    fi
+  fi
 }
 
 dtd_vm_prep () {
@@ -33,6 +46,7 @@ dtd_vm_prep () {
 dtd_vm_create () {
   # Create the bare vm
   vboxmanage createvm --name $DTD_VM_NAME --basefolder $DTD_VM_BASE/ --ostype Ubuntu --register
+  vboxmanage modifyvm $DTD_VM_NAME --pae on
   # Memory
   vboxmanage modifyvm $DTD_VM_NAME --memory 768 --vram 24
   # Network
@@ -52,7 +66,7 @@ dtd_vm_create () {
   vboxmanage storagectl $DTD_VM_NAME --name IDE --add ide
   # Copy over the iso file
   # cp ../iso/dtd2016-desktop.iso $dtd-vm-dir
-  cp ../$DTD_VM_ISO $DTD_VM_DIR
+  cp ../../$DTD_VM_ISO $DTD_VM_DIR
   # Attach the iso file as an optical disk
   vboxmanage storageattach $DTD_VM_NAME --storagectl IDE --medium $DTD_VM_DIR/$DTD_VM_ISO --port 0 --type dvddrive --device 1
 }
