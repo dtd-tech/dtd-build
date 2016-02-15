@@ -154,6 +154,9 @@ add-apt-repository -y ppa:webupd8team/atom
 apt-get update
 apt-get install --assume-yes --force-yes atom
 
+# Install xPDF
+apt-get install --assume-yes --force-yes xpdf
+
 # Install virt-what
 apt-get install --assume-yes --force-yes virtualbox-guest-x11 virtualbox-guest-dkms dkms
 # Download but don't install guest additions for virtualbox and vmware.
