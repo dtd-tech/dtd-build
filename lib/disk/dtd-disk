@@ -9,18 +9,25 @@
 # sudo sgdisk --new=1:0:0 --typecode=1:ef00 /dev/sdb
 # sudo mkfs.vfat -F32 -n DTD2016 /dev/sdb1
 
+dtd_build_disk_mount() {
+  mkdir -p $dtd_cfg_disk_master_mount
+  umount ${dtd_cfg_disk_master_device}1
+  sleep 5
+  mount ${dtd_cfg_disk_master_device}1 $dtd_cfg_disk_master_mount
+}
+
 dtd_build_disk_desktop() {
   # Copy iso image
-  cp $dtd_build_dir/var/build/desktop/$dtd_cfg_event_short-desktop.iso $dtd_cfg_master_mount/
+  cp $dtd_build_dir/var/build/desktop/$dtd_cfg_event_short-desktop.iso $dtd_cfg_disk_master_mount/
   # Adding a file for persistent storage.
-  dd if=/dev/zero of=$dtd_cfg_master_mount/casper-rw bs=1M count=256
-  mkfs.ext3 -F $dtd_cfg_master_mount/casper-rw
+  dd if=/dev/zero of=$dtd_cfg_disk_master_mount/casper-rw bs=1M count=256
+  mkfs.ext3 -F $dtd_cfg_disk_master_mount/casper-rw
 }
 
 dtd_build_disk_grub() {
   # Install grub
-  sudo grub-install --force --removable --no-floppy --boot-directory=$dtd_cfg_disk_master_mount/boot $dtd_cfg_master/device
-  cp $dtd_build_dir/lib/stick/grub.cfg $dtd_cfg_master_mount/boot/grub/
+  sudo grub-install --force --removable --no-floppy --boot-directory=$dtd_cfg_disk_master_mount/boot $dtd_cfg_disk_master_device
+  cp $dtd_build_dir/lib/disk/grub.cfg $dtd_cfg_disk_master_mount/boot/grub/
 }
 
 dtd_build_disk_win() {
@@ -48,8 +55,9 @@ dtd_build_disk_mac() {
   mkdir -p $dtd_cfg_disk_master_mount/mac
   # copy Tools
   mkdir -p $dtd_cfg_disk_master_mount/mac/tools
-  mac_tools=( $dtd_src_win_tools )
-  for tool in "${win_tools[@]}";
+  mkdir -p $dtd_cfg_disk_master_mount/mac/vm
+  mac_tools=( $dtd_src_mac_tools )
+  for tool in "${mac_tools[@]}";
   do
     eval tool_file=\$dtd_src_${tool}_file
     if [ $tool = "mac_vbox" ];
@@ -66,22 +74,32 @@ dtd_build_disk_mac() {
 dtd_build_disk_lin() {
   # create Linux dir
   mkdir -p $dtd_cfg_disk_master_mount/linux/vm
-  cp $dtd_build_dir/lib/vm/dtd-vbox.sh $dtd_cfg_disk_master_mount/mac/vm/
+  cp $dtd_build_dir/lib/vm/dtd-vbox.sh $dtd_cfg_disk_master_mount/linux/vm/
   # copy Tools
   lin_tools=( $dtd_src_lin_tools )
   for tool in "${lin_tools[@]}";
   do
     eval tool_file=\$dtd_src_${tool}_file
-    cp $dtd_build_dir/var/sources/tools/mac/$tool_file $dtd_cfg_disk_master_mount/mac/vm/
+    cp $dtd_build_dir/var/sources/tools/lin/$tool_file $dtd_cfg_disk_master_mount/linux/vm/
   done
 }
 
+dtd_build_disk_extras() {
+  # Just copy over the extras directory.
+  cp -R $dtd_build_dir/var/source/extras $dtd_cfg_disk_master_mount/
+}
+
+dtd_build_disk_doc() {
+  cp $dtd_build_dir/var/source/doc/* $dtd_cfg_disk_master_mount/
+}
+
 dtd_build_disk() {
+  dtd_build_disk_mount
   dtd_build_disk_desktop
   dtd_build_disk_grub
   dtd_build_disk_win
   dtd_build_disk_mac
   dtd_build_disk_lin
+  dtd_build_disk_extras
   dtd_build_disk_doc
-  dtd_build_disk_extra
 }

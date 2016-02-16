@@ -68,6 +68,10 @@ case "$1" in
         source $dtd_build_dir/lib/win/dtd-win
         dtd_build_win
         ;;
+      disk )
+        source $dtd_build_dir/lib/disk/dtd-disk
+        dtd_build_disk
+        ;;
       all | "" )
         source $dtd_build_dir/lib/desktop/dtd-desktop
         dtd_build_desktop

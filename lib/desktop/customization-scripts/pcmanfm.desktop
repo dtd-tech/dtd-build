@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Icon=system-file-manager
+Name=Workshop Bestanden
+Name[nl]=Workshop Bestanden
+GenericName=File Manager
+GenericName[nl]=Bestandbeheerder
+Comment=Browse the file system and manage the files
+Comment[nl]=Blader door het bestandssysteem en beheer de bestanden
+Categories=FileManager;Utility;Core;GTK;
+Exec=pcmanfm /var/www/html/workshops
+StartupNotify=true
+Terminal=false
+MimeType=inode/directory;

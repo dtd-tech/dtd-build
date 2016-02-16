@@ -162,6 +162,11 @@ dtd_source_tools_get_all() {
   # Mac tools
   mac_tools=( $dtd_src_mac_tools )
   for source in "${mac_tools[@]}"; do dtd_source_get $source tools/mac; done
+
+  # LInux tools
+  lin_tools=( $dtd_src_lin_tools )
+  for source in "${lin_tools[@]}"; do dtd_source_get $source tools/lin; done
+
 }
 
 dtd_source_workshops_get() {

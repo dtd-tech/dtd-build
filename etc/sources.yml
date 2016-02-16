@@ -47,7 +47,7 @@ win_chromium:
   file: "ChromiumPortable_50.0.2633.3.paf.exe"
 
 # Tools
-win_tools: "win_vbox win_atom win_filezilla"
+win_tools: "win_vbox win_atom win_filezilla win_pdf win_7zip"
 win_vbox:
   method: "http"
   url: "http://download.virtualbox.org/virtualbox/5.0.12/VirtualBox-5.0.12-104815-Win.exe"
@@ -71,7 +71,7 @@ win_7zip:
   file: "7z1514.exe"
 
 
-mac_tools: "mac_vbox mac_atom"
+mac_tools: "mac_vbox mac_atom mac_filezilla"
 mac_vbox:
   method: "http"
   url: "http://download.virtualbox.org/virtualbox/5.0.12/VirtualBox-5.0.12-104815-OSX.dmg"
@@ -80,6 +80,10 @@ mac_atom:
   method: "http"
   url: "https://github.com/atom/atom/releases/download/v1.3.2/atom-mac.zip"
   file: "atom-mac.zip"
+mac_filezilla:
+  method: "http"
+  url: "http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.15.0.2/FileZilla_3.15.0.2_macosx-x86.app.tar.bz2?r=&ts=1455656717&use_mirror=heanet"
+  file: "FileZilla_3.15.0.2_macosx-x86.app.tar.bz2"
 
 lin_tools: "lin32_vbox lin64_vbox ub32lts_vbox ub64lts_vbox ub32_vbox ub64_vbox os32_vbox os64_vbox"
 lin32_vbox:
