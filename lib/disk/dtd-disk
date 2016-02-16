@@ -9,10 +9,26 @@
 # sudo sgdisk --new=1:0:0 --typecode=1:ef00 /dev/sdb
 # sudo mkfs.vfat -F32 -n DTD2016 /dev/sdb1
 
+dtd_build_disk_grub() {
+  # Install grub
+  sudo grub-install --force --removable --no-floppy --boot-directory=$dtd_cfg_disk_master_mount/boot $dtd_cfg_master/device
+  cp $dtd_build_dir/lib/stick/grub.cfg $dtd_cfg_master_mount/boot/grub/
+}
 
-# sudo grub-install --force --removable --no-floppy --boot-directory=/media/dtd/0000-0001/boot --efi-directory=/media/dtd/0000-0001/EFI/BOOT /dev/sdb1
-sudo grub-install --force --removable --no-floppy --boot-directory=/media/dtd/0000-0001/boot /dev/sdb
+dtd_build_disk_desktop() {
+  # Copy iso image
+  cp $dtd_build_dir/var/build/desktop/$dtd_cfg_event_short-desktop.iso $dtd_cfg_master_mount/
+  dd if=/dev/zero of=$dtd_cfg_master_mount/casper-rw bs=1M count=256
+  mkfs.ext3 -F $dtd_cfg_master_mount/casper-rw
+}
 
+dtd_build_disk() {
+  dtd_build_disk_grub
+  dtd_build_disk_desktop
+  dtd_build_disk_win
+  dtd_build_disk_mac
+  dtd_build_disk_lin
+  dtd_build_disk_doc
+  dtd_build_disk_extra
 
-dd if=/dev/zero of=casper-rw bs=1M count=256
-mkfs.ext3 -F casper-rw
+}
