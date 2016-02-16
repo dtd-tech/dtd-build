@@ -9,26 +9,66 @@
 # sudo sgdisk --new=1:0:0 --typecode=1:ef00 /dev/sdb
 # sudo mkfs.vfat -F32 -n DTD2016 /dev/sdb1
 
+dtd_build_disk_desktop() {
+  # Copy iso image
+  cp $dtd_build_dir/var/build/desktop/$dtd_cfg_event_short-desktop.iso $dtd_cfg_master_mount/
+  # Adding a file for persistent storage.
+  dd if=/dev/zero of=$dtd_cfg_master_mount/casper-rw bs=1M count=256
+  mkfs.ext3 -F $dtd_cfg_master_mount/casper-rw
+}
+
 dtd_build_disk_grub() {
   # Install grub
   sudo grub-install --force --removable --no-floppy --boot-directory=$dtd_cfg_disk_master_mount/boot $dtd_cfg_master/device
   cp $dtd_build_dir/lib/stick/grub.cfg $dtd_cfg_master_mount/boot/grub/
 }
 
-dtd_build_disk_desktop() {
-  # Copy iso image
-  cp $dtd_build_dir/var/build/desktop/$dtd_cfg_event_short-desktop.iso $dtd_cfg_master_mount/
-  dd if=/dev/zero of=$dtd_cfg_master_mount/casper-rw bs=1M count=256
-  mkfs.ext3 -F $dtd_cfg_master_mount/casper-rw
+dtd_build_disk_win() {
+  # Copy windows distro.
+  mkdir -p $dtd_cfg_disk_master_mount/windows
+  cp $dtd_build_dir/var/build/win/$dtd_cfg_event_short-win.exe $dtd_cfg_disk_master_mount/windows
+  # copy Tools
+  mkdir -p $dtd_cfg_disk_master_mount/windows/tools
+  win_tools=( $dtd_src_win_tools )
+  for tool in "${win_tools[@]}";
+  do
+    eval tool_file=\$dtd_src_${tool}_file
+    if [ $tool = "win_vbox" ];
+    then
+      mkdir -p $dtd_cfg_disk_master_mount/windows/vm
+      cp $dtd_build_dir/var/sources/tools/win/$tool_file $dtd_cfg_disk_master_mount/windows/vm/
+    else
+      cp $dtd_build_dir/var/sources/tools/win/$tool_file $dtd_cfg_disk_master_mount/windows/tools/
+    fi
+  done
+}
+
+dtd_build_disk_mac() {
+  # create mac dir
+  mkdir -p $dtd_cfg_disk_master_mount/mac
+  # copy Tools
+  mkdir -p $dtd_cfg_disk_master_mount/mac/tools
+  win_tools=( $dtd_src_win_tools )
+  for tool in "${win_tools[@]}";
+  do
+    eval tool_file=\$dtd_src_${tool}_file
+    if [ $tool = "mac_vbox" ];
+    then
+      mkdir -p $dtd_cfg_disk_master_mount/windows/vm
+      cp $dtd_build_dir/var/sources/tools/win/$tool_file $dtd_cfg_disk_master_mount/windows/vm/
+      cp $dtd_build_dir/lib/vm/dtd-vbox.sh
+    else
+      cp $dtd_build_dir/var/sources/tools/win/$tool_file $dtd_cfg_disk_master_mount/windows/tools/
+    fi
+  done
 }
 
 dtd_build_disk() {
-  dtd_build_disk_grub
   dtd_build_disk_desktop
+  dtd_build_disk_grub
   dtd_build_disk_win
   dtd_build_disk_mac
   dtd_build_disk_lin
   dtd_build_disk_doc
   dtd_build_disk_extra
-
 }
