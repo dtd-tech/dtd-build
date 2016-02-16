@@ -48,18 +48,31 @@ dtd_build_disk_mac() {
   mkdir -p $dtd_cfg_disk_master_mount/mac
   # copy Tools
   mkdir -p $dtd_cfg_disk_master_mount/mac/tools
-  win_tools=( $dtd_src_win_tools )
+  mac_tools=( $dtd_src_win_tools )
   for tool in "${win_tools[@]}";
   do
     eval tool_file=\$dtd_src_${tool}_file
     if [ $tool = "mac_vbox" ];
     then
-      mkdir -p $dtd_cfg_disk_master_mount/windows/vm
-      cp $dtd_build_dir/var/sources/tools/win/$tool_file $dtd_cfg_disk_master_mount/windows/vm/
-      cp $dtd_build_dir/lib/vm/dtd-vbox.sh
+      mkdir -p $dtd_cfg_disk_master_mount/mac/vm
+      cp $dtd_build_dir/var/sources/tools/mac/$tool_file $dtd_cfg_disk_master_mount/mac/vm/
+      cp $dtd_build_dir/lib/vm/dtd-vbox.sh $dtd_cfg_disk_master_mount/mac/vm/
     else
-      cp $dtd_build_dir/var/sources/tools/win/$tool_file $dtd_cfg_disk_master_mount/windows/tools/
+      cp $dtd_build_dir/var/sources/tools/mac/$tool_file $dtd_cfg_disk_master_mount/mac/tools/
     fi
+  done
+}
+
+dtd_build_disk_lin() {
+  # create Linux dir
+  mkdir -p $dtd_cfg_disk_master_mount/linux/vm
+  cp $dtd_build_dir/lib/vm/dtd-vbox.sh $dtd_cfg_disk_master_mount/mac/vm/
+  # copy Tools
+  lin_tools=( $dtd_src_lin_tools )
+  for tool in "${lin_tools[@]}";
+  do
+    eval tool_file=\$dtd_src_${tool}_file
+    cp $dtd_build_dir/var/sources/tools/mac/$tool_file $dtd_cfg_disk_master_mount/mac/vm/
   done
 }
 
